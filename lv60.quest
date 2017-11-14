@@ -1,0 +1,294 @@
+----------------------------------------------------
+--COLLECT QUEST_lv60
+--METIN2 Collecting Quest----------------------------------------------------
+quest collect_quest_lv60  begin
+        state start begin
+        end
+        state run begin
+                when login or levelup with pc.level >= 60 begin
+                        set_state(information)
+						set_quest_state("collect_quest_lv50", "__complete")
+                end
+        end
+
+        state information begin
+                when letter begin
+					
+                        local v = find_npc_by_vnum(20084)
+                        if v != 0 then
+                                target.vid("__TARGET__", v, "Chaegirap")
+                        end
+                        send_letter("Chaegirab'ýn Ricasý ")
+                end
+
+                when button or info begin
+                        say_title("Chaegirab'ýn Ricasý ")
+                        say("")
+                        say("Uriel'in öðrencisi Biyolog Chaegirab")
+                        say("seni arýyor.")
+                        say("Hemen onun yanýna git.")
+                        say("")
+                end
+
+                when __TARGET__.target.click or
+                        20084.chat."Buz Topu" begin
+						set_quest_state("collect_quest_lv50", "__complete")
+                        target.delete("__TARGET__")
+                        say_title("Biyolog Chaegirab:")
+			say("")
+                        ---                                                   l
+                    say("Ha ha yine mi sen?")
+                        say("Seni gördügüme sevindim.")
+                        say("Bu defa batýdaki buz daðýyla ilgili araþtýrma ")
+                        say("yapýyorum. Bana yardým et, lütfen...")
+                        say("Gerçekten çok iþim var.")
+                        say("Benim için batýdaki buz daðýna gidebilir misin?")
+                        say("En iyi sekilde karþýlýðýný alacaksýn!")
+				wait()
+                        say_title("Biyolog Chaegirab:")
+			say("")
+                        say("Batýdaki buz daðýyla ilgili her þeyi bilmek ")
+                        say("istiyorum. Oraya hiç gittin mi?")
+                        say("Bu Buz daðý eski zamanlarda çok güçlü ")
+                        say("oldugu için, her büyücü orayý araþtýrdý.")
+                        say("Oradaki Buz Toplarýný araþtýrýyorum.")
+                        say("")
+                        say("Renkleri açýk ve parlak.")
+			say("")
+                        wait()
+                        say_title("Biyolog Chaegirab:")
+			say("")
+                        say("Bana buz topunu getirmek için")
+                        say("ne kadar zamana ihtiyacýn var?")
+                        say("Yalnýz, kýrýk buz toplarýný getirmemelisin.")
+                        say("Onlarý kullanamam..")
+                        say("Bana 1 tane numune lazým...")
+                        say("Bol þanslar!")
+                        say("")
+                        set_state(go_to_disciple)
+                        pc.setqf("duration",0) 
+                        pc.setqf("collect_count",0)                        
+						pc.setf("collect_quest_luck","drink_drug",0)
+                end
+        end
+
+        state go_to_disciple begin
+                when letter begin
+					
+                        send_letter("Biyolog'un araþtýrmasý ")
+
+                end
+                when button or info begin
+                        say_title("Sohan Daðýndan Buz Topu")
+                        say("Uriel'in ögrencisi Chaegirab batýdaki buz daðýný ")
+                        say("inceliyor. Oradaki gizli enerji ve ")
+                        say("yabanil coðrafi yapýsý ile")
+                        say("bir efsane haline gelmiþ durumda.")
+                        say("Tüm büyücülerin ilgisini çekiyor.")
+                        say("Buz toplarý, bu buz daðýnýn anahtarlarý.")
+                        say("Chegirab'a 1 buz topu getirmelisin.")
+                        say("")
+                        say_item_vnum(30050)
+                        say_reward("Þimdiye kadar ".." "..pc.getqf("collect_count").." adet topladýn.")
+                end
+
+
+
+
+		when 20084.chat."GM: collect_quest_lv60.skip_delay" with pc.count_item(30050) >0 and pc.is_gm() and get_time() <= pc.getqf("duration") begin
+			say(mob_name(20084))
+			say("You are GM, OK")
+			pc.setqf("duration", get_time()-1)
+			return
+		end
+
+            when 20084.chat."Buz Topu" with pc.count_item(30050) >0   begin
+                        if get_time() > pc.getqf("duration") then
+                                say_title("Biyolog Chaegirab:")
+								say("Ah, bir tane bulmuþsun.")
+                                say("Biraz bekle de kontrol edeyim...")
+                                pc.remove_item(30050, 1)
+                                pc.setqf("duration",get_time()+1)
+                                wait()
+
+                                local pass_percent
+								if pc.is_gm() then
+								pass_percent =100
+								else
+									if pc.getf("collect_quest_luck","drink_drug")==0 then
+                                        pass_percent=100
+									else
+                                        pass_percent=100
+									end
+                                end
+
+                                local s= number(1,100)
+                               if s<= pass_percent  then
+                             --[[       if pc.getqf("collect_count")< 19 and not pc.is_gm() then     
+                                                local index =pc.getqf("collect_count")+1
+                                                pc.setqf("collect_count",index)
+                                                say_title("Biyolog Chaegirab:")
+												say("Ah! Bu Buz Topu en iyi kalite! Hemen ")
+												say("araþtýrmaya baþlayacaðým. Ancak "..20-pc.getqf("collect_count").." tane daha")
+												say("lazým. Lütfen bulmaya çalýþ!")
+												say("Ve zamana ihtiyacým olduðunu unutma. Yarýna kadar")
+												say("baþka bir Buz Topu inceleyemem.")
+                                                pc.setf("collect_quest_luck","drink_drug",0)
+                                                return
+                                        end ]]
+                                        say_title("Biyolog Chaegirab:")
+					say("")
+					---                                                   l
+                                        say("1 tane buz topunun hepsini topladýn!")
+                                        say("Yalnýz biþey eksik; buz ruhu'nun")
+                                        say("ruh taþý, o bizim anahtarýmýz.")
+                                        say("Bu ruh taþýný ")
+                                        say("buz canavarlarýndan alabilirsin.")
+                                        say("Bunu yapabilir misin?")
+                                        say("")
+                                        pc.setqf("collect_count",0)
+                                       pc.setf("collect_quest_luck","drink_drug",0)
+                                        pc.setqf("duration",0)
+                                        set_state(key_item)
+                                        return
+                                else
+                                say_title("Biyolog Chaegirab:")
+				say("")
+                                say("Hmm......")
+                                say("Kusura bakma, ama bu buz topunu kullanamam..")
+                                say("Bu kýrýk.")
+                                say("Bir tane daha getirir misin?")
+                                say("")
+                               pc.setf("collect_quest_luck","drink_drug",0)
+				return
+                                end
+                 else
+                  say_title("Biyolog Chaegirab:")
+		  say("")
+		  ---                                                   l
+                  say("Kusura Bakma...")
+                  say("Son Buz topunu, daha")
+                  say("incelemedim.....")
+                  say("Sonra bir daha gelir misin?")
+                  say("")
+                  return
+                end
+
+        end
+end
+
+
+        state key_item begin
+                when letter begin
+					
+                        send_letter("Biyolog'un araþtýrmasý ")
+
+                        if pc.count_item(30223)>0 then
+                                local v = find_npc_by_vnum(20084)
+                                if v != 0 then
+                                        target.vid("__TARGET__", v, "Chaegirap")
+                                end
+                        end
+
+                end
+                when button or info begin
+                        if pc.count_item(30223) >0 then
+                                say_title("Aurtumryunun Ruh Taþý ")                                               
+								say("Sonunda Aurtumryunun Ruh Taþýný buldun! Onu ")
+                                say("biyolog Chaegirab'a götür. Seni bekliyor.")
+                                return
+                        end
+
+                        say_title("Aurtumryunun Ruh Taþý")                                                  
+                        say("Uriel'in öðrencisi Chaegirab'in incelemesi için")
+                        say("ona Buz daðýndan 1 tane buz topu getirdin.")
+                        say("Son olarak Aurtumryunun Ruh Taþý lazým.")
+                        say_item_vnum(30223)
+                        say("Batýdaki buz daðýna gidip, Onu Chaegirab'a")
+                        say("getirmelisin.")
+                end
+
+
+            --    when kill with npc.get_race() == 1104 or npc.get_race() == 1105 or npc.get_race() == 1106 or npc.get_race() == 1107 begin
+
+             --           local s = number(1,200)
+             --           if s==1 then
+             --                   pc.give_item2(30223,1)
+             --                   send_letter("Biyolog'un araþtýrmasý ")
+             --           end
+            --    end
+
+
+
+                when __TARGET__.target.click  or
+                        20084.chat."Ruh taþýný getirdim" with
+		pc.count_item(30223) > 0  begin
+                    target.delete("__TARGET__")
+                        say_title("Biyolog Chaegirab:")
+						say("Çok Teþekkür ederim! Ödül olarak sana bu reçeteyi")
+                        say("vereceðim. Ýçerini çok az kiþi bilir ve gizli")                                                 
+                        say("tutulur. Bu reçete ile yapýlacak olan iksir")
+                        say("kýlýcý senin saldýrý gücünü geliþtirir. ")
+                        say("Baek-Go'ya git. Ýksiri o yapacak. ")
+                        say("Kendine iyi bak arkadaþým. Teþekkür ederim")
+                        say("sayende Buz Daðý hakkýnda çok önemli bilgiler")
+						say("edindim.")
+                        pc.remove_item("30223",1)
+                        set_state(__reward)
+                end
+
+        end
+
+        state __reward begin
+                when letter begin
+					
+                        send_letter("Chaegirab'ýn ödülü ")
+
+                        local v = find_npc_by_vnum(20018)
+                        if v != 0 then
+                                target.vid("__TARGET__", v, "Baek Go")
+                        end
+
+                end
+                when button or info begin
+                        say_title("Chaegirab'ýn ödülü ")
+                        ---                                                   l
+                        say("Buz Toplarý ve Ruh Taþýnýn ödülü olarak")
+                        say("Biyolog Chaegirab sana gizli bir reçete verdi.")
+                        say("Baek-Go'ya götür git, sana mucizevi bir iksir yapacak.")
+                end
+
+                when __TARGET__.target.click  or
+                        20018.chat."Reçeteye bak"  begin
+                    target.delete("__TARGET__")
+                        say_title("Baek Go:")                                            
+                        say("Ah, bu Chaegirab'ýn gizli reçetesi mi? Hm, bu")
+                        say("saldýrý deðerini 50 puan artýracak. Ýþte")
+                        say("iksirin! Sana bu sandýðý da vermeliyim. Ona iyi")
+                        say("bak.")
+                        wait()
+                        say(""..pc.get_name()..":")
+                        say("Teþekkürler. Bu kez sandýk ne renk?")
+                        say("")
+                        wait()
+                        say_title("Baek-Go:")
+                        say("Bakalým...")
+                        say("Ah, Açýk Yeþil Abanoz Sandýk. Ýþte!")
+                        say_reward("Chaegirab'ýn isteðini yerine getirmenin ödülü ")
+                        say_reward("olarak saldýrý deðerin kalýcý olarak 50 puan")
+                        say_reward("arttý.")
+
+						affect.add_collect(apply.ATT_GRADE_BONUS,50,60*60*24*365*60)--60³â		
+                        pc.give_item2("50513",1)
+                        clear_letter()
+                        set_quest_state("collect_quest_lv70", "run")
+						set_quest_state("collect_quest_lv50", "__complete")
+                        set_state(__complete)
+                end
+
+        end
+
+
+        state __complete begin
+        end
+end

@@ -1,0 +1,302 @@
+----------------------------------------------------
+--COLLECT QUEST_lv90
+--METIN2 Collecting Quest  
+----------------------------------------------------
+quest collect_quest_lv90  begin
+	state start begin
+	end
+	state run begin
+		when login or levelup with pc.level >= 90 begin
+			set_state(information)
+		end	
+	end
+
+	state information begin
+		when letter begin
+			local v = find_npc_by_vnum(20084)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Chaegirab")
+			end
+			send_letter("Chaegirab'ýn isteði")
+		end
+
+		when button or info begin
+			say_title("Chaegirab'ýn isteði")
+			say("Uriel'in öðrencisi Chaegirab seni")
+			say("arýyor. Yanýna git ve ne istediðini öðren.")
+			say("")
+		end
+		
+		when __TARGET__.target.click or
+			20084.chat."Dinle" begin
+			target.delete("__TARGET__")
+			---                                                   l
+			say_title("Biyolog Chaegirab:")
+			say("Benim için þimdiye kadar yaptýðýn")
+			say("yardýmlar için minnettarým.Çok iyi iþ ")
+			say("çýkardýn.Senin gibi kahramanlar sayesinde")
+			say("araþtýrmalarýmý neredeyse bitirdim.")
+			say("Bu benim senden son isteðim olacak.")
+			say("Emin olabilirsin.")
+			wait()
+			say_title("Biyolog Chaegirab:")
+			say("Liderlerin Notlarý'na ihtiyacým var!")
+			say("Lütfen hayatýmýn en önemli araþtýrmasý ")
+			say("için yardým et. Fakat sahte olanlarý ")
+			say("alamam. Araþtýrmam için bana 50 adet")
+			say("Liderlerin Notlarý getirmelisin. Bunu karþýlýðýný ")
+			say("alacaksýn. Bol þanslar.")
+			say("")																																						  
+			set_state(go_to_disciple)
+			pc.setqf("duration",0)  -- Time limit
+			pc.setqf("collect_count",0)--Items collected
+			pc.setf("collect_quest_luck","drink_drug",0) --quest potion 1
+		end
+	end
+
+	state go_to_disciple begin
+		when letter begin
+			send_letter("Biyolog'un araþtýrmasý ")
+			
+		end
+		when button or info begin
+			say_title("Patron yaratýklarý bul")
+			say("Uriel'in öðrencisi Cheagirab, patron")
+		    say("canavarlar hakkýnda bilgi topluyor. Araþtýrmasý ")
+			say("için 50 Liderlerin Notlarýna ihtiyacý var. Tek")
+			say("tek götür ki iyice inceleyebilsin. Notlarý patron")
+			say("canavarlardan elde edebilirsin.")
+			say_item_vnum(30168) 
+			say_reward("Þimdiye kadar "..pc.getqf("collect_count").." not getirdin.")
+			say("")
+		end
+		
+		--when 40004.use begin
+		--say_title("Biyolog Bitirici:")
+		--say("Tebrikler görevi direk geçtin.")
+		--say("Baek-go nun yanýna gidip ödülünü al")
+		--set_state("__reward")
+		--pc.remove_item("40004",1)
+		--end
+		
+
+--[[when kill with npc.get_race() == 691 or npc.get_race() == 791 or npc.get_race() == 792 or npc.get_race() == 1192 or
+		npc.get_race() == 1304 or npc.get_race() == 1901 or npc.get_race() == 2091 or npc.get_race() == 2191 or npc.get_race() == 2206 or
+		npc.get_race() == 2306 or npc.get_race() == 2595 or npc.get_race() == 2596 or npc.get_race() == 3090 or npc.get_race() == 3091 or
+		npc.get_race() == 3190 or npc.get_race() == 3191 or npc.get_race() == 3290 or npc.get_race() == 3291 or npc.get_race() == 3390 or
+		npc.get_race() == 3391 or npc.get_race() == 3490 or npc.get_race() == 3491 or npc.get_race() == 3590 or npc.get_race() == 3591 or
+		npc.get_race() == 3690 or npc.get_race() == 3691 or npc.get_race() == 3790 or npc.get_race() == 3791 or npc.get_race() == 3890 or
+		npc.get_race() == 3891 or npc.get_race() == 3990 or npc.get_race() == 3901 or npc.get_race() == 3902 or npc.get_race() == 3903 or
+		npc.get_race() == 3904 or npc.get_race() == 3905 or npc.get_race() == 3906 and pc.get_level() >= 90 begin			
+		local s = number(1, 100)
+			if s <= 30 then
+				pc.give_item2("30168", 1)
+				send_letter("Liderlerin Notlarýný buldun.")
+			end	
+		end]]
+
+		
+    	when 20084.chat."Liderlerin Notlarý " with pc.count_item(30168) >0 and pc.get_level() >= 90 begin
+			if get_time() > pc.getqf("duration") then
+				if  pc.count_item(30168) >0 then
+				say_title("Biyolog Chaegirab:")
+				say("Ah, bir tane bulmuþsun.")
+                say("Biraz bekle de kontrol edeyim...")
+				pc.remove_item(30168, 1)
+				if  pc.is_gm()  then 
+					pc.setqf("duration",get_time()+2) 
+				else
+					if game.get_event_flag("iade") == 1 then
+					pc.setqf("duration",get_time()+1) -----------------------------------22hours
+					else
+					pc.setqf("duration",get_time()+1) -----------------------------------22hours
+					end
+				end
+				wait()
+				
+				local pass_percent
+				if pc.is_gm() then
+								pass_percent =100
+								else	
+					if pc.getf("collect_quest_luck","drink_drug")==0 then
+					pass_percent=40
+					else		
+					pass_percent=80
+					end
+				end
+				
+				local s= number(1,100)
+				if s<= pass_percent  then
+				   if pc.getqf("collect_count")< 49 and not pc.is_gm() then     --less than 50 
+						local index =pc.getqf("collect_count")+1 
+						pc.setqf("collect_count",index) 
+						say_title("Biyolog Chaegirab:")
+						say("Ah! Bu not en iyi kalite! Hemen araþtýrmaya")
+                        say("baþlayacaðým. Ancak "..50-pc.getqf("collect_count").." tane daha")
+                        say("lazým. Lütfen bulmaya çalýþ!")
+                        say("Ve zamana ihtiyacým olduðunu unutma. Yarýna kadar")
+						say("baþka bir not inceleyemem.")
+						pc.setf("collect_quest_luck","drink_drug",0)	 --Potion reset
+
+						return
+					end
+					say_title("Biyolog Chaegirab:")
+					say("Bütün notlarý topladýn!")
+					say("Þimdi Liderlerin Ruh Taþý'na ihtiyacým var.")
+					say("Bana sadece bir tane getir.")
+					say("Araþtýrmamý bu sayede bitirmiþ olacaðým.")
+					pc.setqf("collect_count",0)
+					pc.setf("collect_quest_luck","drink_drug",0)	
+					pc.setqf("duration",0) 
+					set_state(key_item)
+					return
+				else								
+				say_title("Biyolog Chaegirab:")
+				say("Üzgünüm ama bu notlar sahte.")
+				say("Daha sonra baþka bir tane getir.")			
+				pc.setf("collect_quest_luck","drink_drug",0)	 --Potion reset
+				return
+				end
+				else
+					say_title("Chaegirab:")
+					say(""..item_name(30168).." bulduðunda tekrar gel.")
+					return
+				end
+		  else
+		  say_title("Chaegirab:")
+		  say("Üzgünüm.")
+		  say("Son getirdiðin not üzerindeki incelemem ")
+		  say("henüz bitmedi.")
+		  say("Sonra gelsen olur mu?")
+		  say("")
+		  say_reward("Kalan zaman: "..pc.getqf("duration") - get_time().." saniye")
+		  return
+		end
+
+	end
+end
+
+
+	state key_item begin
+		when letter begin
+			send_letter("Biyolog'un araþtýrmasý ")
+			
+			if pc.count_item(30227)>0 then	
+				local v = find_npc_by_vnum(20084)
+				if v != 0 then
+					target.vid("__TARGET__", v, "Chaegirab")
+				end
+			end
+
+		end
+		when button or info begin
+			if pc.count_item(30227) >0 then
+				say_title("Liderlerin Ruh Taþý ")
+				say("Sonunda Orman Ruhu Taþýný buldun! Onu ")
+                say("biyolog Chaegirab'a götür. Seni bekliyor.")
+				return
+			end
+			say_title("Liderlerin Ruh Taþý ")
+			say("Uriel'in öðrencisi Chaegirab için, ")
+			say("50 adet Liderlerin Notlarý topladým.")
+			say("Son olarak Liderlerin Ruh Taþý'na ihtiyacým var!")
+			say_item_vnum(30227)----------The plague king soul stone
+			say("Þu yaratýklardan onu bulabilirim: "..mob_name(1092)..","..mob_name(1093)..",")
+			say(""..mob_name(1304)..","..mob_name(1901)..","..mob_name(2206)..",")
+			say(""..mob_name(2206).."")
+		end
+--[[when kill with npc.get_race() == 691 or npc.get_race() == 791 or npc.get_race() == 792 or npc.get_race() == 1192 or
+		npc.get_race() == 1304 or npc.get_race() == 1901 or npc.get_race() == 2091 or npc.get_race() == 2191 or npc.get_race() == 2206 or
+		npc.get_race() == 2306 or npc.get_race() == 2595 or npc.get_race() == 2596 or npc.get_race() == 3090 or npc.get_race() == 3091 or
+		npc.get_race() == 3190 or npc.get_race() == 3191 or npc.get_race() == 3290 or npc.get_race() == 3291 or npc.get_race() == 3390 or
+		npc.get_race() == 3391 or npc.get_race() == 3490 or npc.get_race() == 3491 or npc.get_race() == 3590 or npc.get_race() == 3591 or
+		npc.get_race() == 3690 or npc.get_race() == 3691 or npc.get_race() == 3790 or npc.get_race() == 3791 or npc.get_race() == 3890 or
+		npc.get_race() == 3891 or npc.get_race() == 3990 or npc.get_race() == 3901 or npc.get_race() == 3902 or npc.get_race() == 3903 or
+		npc.get_race() == 3904 or npc.get_race() == 3905 or npc.get_race() == 3906 and pc.get_level() >= 90 begin			local s = number(1, 50)
+			if s <= 60 and pc.count_item(30227)==0 then
+				pc.give_item2(30227, 1)
+				send_letter("Biyolog'un araþtýrmasý ")		
+			end	
+		end]]
+
+
+
+		
+		when __TARGET__.target.click  or
+			20084.chat."Liderlerin Ruh Taþý'ný buldum" with pc.count_item(30227) > 0 and pc.get_level() >= 90 begin
+		    target.delete("__TARGET__")
+			if pc.count_item(30227) > 0 then 
+			say_title("Biyolog Chaegirab:")
+			say("Ah! Ýyi çalýþma. Teþekkür ederim sayende")
+			say("araþtýrmalarýmý tamamladým!")
+			say("Ödül olarak sana bu gizli reçeteyi veriyorum.")
+			say("Baek-Go senin için iksiri yapacak. Tekrar")
+			say("teþekkürler ve iyi günler!")
+			pc.remove_item(30227,1)
+			set_state(__reward)
+			else
+				say("Chaegirab")
+				say(""..item_name(30227).." bulduðunda tekrar gel!")
+				say("")
+				return
+			end
+		end
+		
+	end
+	
+	state __reward begin
+		when letter begin
+			
+			send_letter("Chaegirab'ýn ödülü ")
+			
+			local v = find_npc_by_vnum(20018)
+			if v != 0 then
+				target.vid("__TARGET__", v, "Baek-go")
+			end
+
+		end
+		when button or info begin
+			say_title("Chaegirab'ýn ödülü ")
+			say("Liderlerin Notlarý ve ruh taþýnýn ödülü olarak")
+            say("biyolog Chaegirab sana gizli bir reçete verdi.")
+            say("Þimdi Baek-Go'ya git, senin için mucizevi bir ")
+            say("iksir yapacak.")
+		end
+		
+		when __TARGET__.target.click  or
+			20018.chat."Reçeteyi ver"  begin
+		    target.delete("__TARGET__")
+			say_title("Baek-go:")
+			say("Ah, bu biyolog Chaegirab'ýn gizli reçetesi mi?")
+			say("Hm, bu diðer kahramanlarla savaþýrken saldýrý ")
+			say("deðerini artýracak. Ýþte iksirin!")
+			wait()
+			say_title("Baek-go:")
+			say("Ayný zamanda sana bu Mavi Abanoz Sandýðý ")
+			say("da vermeliyim. Ona iyi bak.")
+			say_reward("Bu ödül Chaegirab'ýn isteðini kýrmadýðýn için.")
+			say_reward("Chaegirab'ýn ricasýný yerine getirdiðin için ")
+			say_reward("diðer oyuncularla savaþýrken(PvP) saldýrý deðerin")
+			say_reward("kalýcý olarak %10 artýyor.")
+			say_reward("Bu artýþ kalýcýdýr.")
+			affect.add_collect_point(POINT_ATTBONUS_WARRIOR,10,60*60*24*365*60) --60years	
+			affect.add_collect_point(POINT_ATTBONUS_ASSASSIN,10,60*60*24*365*60) --60years	
+			affect.add_collect_point(POINT_ATTBONUS_SURA,10,60*60*24*365*60) --60years	
+			affect.add_collect_point(POINT_ATTBONUS_SHAMAN,10,60*60*24*365*60) --60years
+			affect.add_collect_point(POINT_ATTBONUS_HUMAN,10,60*60*24*365*60)
+			pc.give_item2("50513",1)
+			pc.give_item2("50513",1)
+			pc.give_item2("50513",1)
+			clear_letter()
+			set_quest_state("collect_quest_lv92", "run")
+			set_state(__complete)
+		end
+			
+	end
+
+	
+	state __complete begin
+	end
+end
+
+
