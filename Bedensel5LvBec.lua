@@ -9,7 +9,7 @@ quest Bedensel5LvBec begin
 --		say_title ( "Educação incorreta " ) 
 --		say ( "" ) 
 --		say ( "Peço desculpa." ) 
---		say ( "Somente os Guerreiros podem escolher Arte Corpo Corpo." ) 
+--		say ( "Somente os Guerreiros podem escolher Arte Corpo." ) 
 --		say ( "" ) 
 --		say ( "" ) 
 		if pc_job == 0 then 
