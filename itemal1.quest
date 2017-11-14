@@ -1,0 +1,37 @@
+quest itemal1 begin
+	state start begin
+		when 20991.chat."Silah Kostumu Istiyorum! " begin
+			say_title(mob_name(20991))
+			say("x20 Eski Belge'ye Silah Kostumu Alabilirsin")
+			say("2 Gunluktur ve yuzde10 canavarlara karsi guc saglar")
+			say("Silah Kostumu Istiyorsan")
+			say("x20 Eski Belgeini ustume suruklemen yeter!")  
+			say_item_vnum(31002)
+		end
+		when 20991.take with item.vnum == 31002 begin
+			say_title(mob_name(20991))
+			say("x5 Eski Belge'ye Silah Kostumu Istermisin ?")
+			say_item_vnum(31002,20)      
+			say_item_vnum(30335)
+			local ss = select("Evet","Hayir")  
+				if ss == 1 then
+	
+			if pc . count_item ( 31002 ) < 20 then
+			say_title(mob_name(20991))
+			say ("Envanterinde yeterli Eski Belgei yokken.")
+			say ("Malesef veremem")      
+			return
+		end
+	
+			pc.remove_item("31002",20)
+			pc.give_item2("30335",1)
+		end
+				if ss == 2 then  
+			say_title(mob_name(20991))
+			say("Tamam , sen bilirsin.")
+			say("Fikrini degistirirsen bana ugra!")
+			return
+			end
+		end
+	end
+end

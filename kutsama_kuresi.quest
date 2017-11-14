@@ -1,0 +1,51 @@
+quest kutsama_kuresi begin
+	state start begin
+		when 9006.chat."Kutsama Küresi" begin
+			if pc.level < 1 then
+				say_title("Yaşlı Kadın:")
+				say("")
+				say("1. Seviyenin altinda oldugun için")
+				say("kutsama küresini sana veremem..")
+				return
+			end
+			say_title("Kutsama küresi itemlere 5. bonusu ekler.")
+			say("")
+			say("Kutsama küresi almak istiyormusun?")
+			say("Tek seferde 5 adet verebilirim.")
+			say("Fiyatı: 1 Milyon Yang.")
+			say("Emin misin?")
+			say("")
+			s = select("Evet", "Hayır")
+			if pc.money < 5000000 then
+				say_title("Yaşlı Kadın:")
+				say("")
+				say("Yeterli Yang'a sahip degilsin, ")
+				say("Yang olmadan sana kutsama küresi veremem.")
+				say("")
+				return
+			end
+			if 1==s then
+				say("")
+				say("Kutsama kürelerini sana veriyorum.")
+				say("Bol Efsunlu Günler.")
+				say("")
+				pc . give_item2 (70024)
+				pc . give_item2 (70024)
+				pc . give_item2 (70024)
+				pc . give_item2 (70024)
+				pc . give_item2 (70024)
+				pc.change_gold(-1000000)
+				return
+			end
+			if 2==s then
+				say_title("Yaşlı Kadın:")
+				say("")
+				say("Ne oldu pahalımı geldi?")
+				say("Kararını değiştirirsen beni tekrar")
+				say("ziyaret et.")
+				say("")
+				return
+			end
+		end
+	end
+end

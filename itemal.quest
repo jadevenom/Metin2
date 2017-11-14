@@ -1,0 +1,36 @@
+quest itemal begin
+	state start begin
+		when 20406.chat."Kusak simples que eu quero " begin
+			say_title(mob_name(20406))
+			say("x5 Eski Belge'ye Basit Kusak Alabilirsin")
+			say("Basit Kusak Istiyorsan")
+			say("x5 Eski Belgeni ustume suruklemen yeter!")  
+			say_item_vnum(31002)
+		end
+		when 20406.take with item.vnum == 31002 begin
+			say_title(mob_name(20406))
+			say("x5 Eski Belge'ye Basit Kusak Istermisin ?")
+			say_item_vnum(31002,5)      
+			say_item_vnum(85001)
+			local ss = select("Evet","Hayir")  
+				if ss == 1 then
+	
+			if pc . count_item ( 31002 ) < 5 then
+			say_title(mob_name(20406))
+			say ("Envanterinde yeterli Eski Belgei yokken.")
+			say ("Malesef veremem")      
+			return
+		end
+	
+			pc.remove_item("31002",5)
+			pc.give_item2("85001",1)
+		end
+				if ss == 2 then  
+			say_title(mob_name(20406))
+			say("Tamam , sen bilirsin.")
+			say("Fikrini degistirirsen bana ugra!")
+			return
+			end
+		end
+	end
+end
