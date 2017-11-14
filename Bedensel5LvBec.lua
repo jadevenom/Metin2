@@ -6,39 +6,39 @@ quest Bedensel5LvBec begin
 		when info or button begin
 		local pc_job = pc . get_job ( ) 
 		if pc_job ~= 0 then 
---		say_title ( "Yanlış Eğitim " ) 
+--		say_title ( "EducaÃ§Ã£o incorreta " ) 
 --		say ( "" ) 
---		say ( "Özür dilerim." ) 
---		say ( "Sadece Savaşçılar Bedensel Savaşı seçebilir." ) 
+--		say ( "PeÃ§o desculpa." ) 
+--		say ( "Somente os Guerreiros podem escolher Arte Corpo Corpo." ) 
 --		say ( "" ) 
 --		say ( "" ) 
 		if pc_job == 0 then 
---		say_reward ( "Bir Savaşçı,  Zihinsel Savaşı " ) 
---		say_reward ( "veya Bedensel Savaşı " ) 
---		say_reward ( "seçebilir." ) 
+--		say_reward ( "Um Guerreiro, Guerreiro Mental " ) 
+--		say_reward ( "ou Arte Corpo " ) 
+--		say_reward ( "Pode escolher." ) 
 		elseif pc_job == 1 then 
---		say_reward ( "Bir Ninja, Yakin Dövüş veya" ) 
---		say_reward ( "Uzak Dövüş eğitimini" ) 
---		say_reward ( "seçebilir." ) 
+--		say_reward ( "Bir Ninja, Yakin DÃ¶vÃ¼Ã¾ veya" ) 
+--		say_reward ( "Uzak DÃ¶vÃ¼Ã¾ eÃ°itimini" ) 
+--		say_reward ( "seÃ§ebilir." ) 
 		elseif pc_job == 2 then 
---		say_reward ( "Bir Sura, Büyülü Silah" ) 
---		say_reward ( "veya Kara Büyü eğitimini" ) 
---		say_reward ( "seçebilir." ) 
+--		say_reward ( "Bir Sura, BÃ¼yÃ¼lÃ¼ Silah" ) 
+--		say_reward ( "veya Kara BÃ¼yÃ¼ eÃ°itimini" ) 
+--		say_reward ( "seÃ§ebilir." ) 
 		elseif pc_job == 3 then 
---		say_reward ( "Bir Şaman, Ejderha Gücü eğitimini" ) 
---		say_reward ( "veya İyileştirme eğitimini" ) 
---		say_reward ( "seçebilir." ) 
+--		say_reward ( "Bir Ãaman, Ejderha GÃ¼cÃ¼ eÃ°itimini" ) 
+--		say_reward ( "veya ÃyileÃ¾tirme eÃ°itimini" ) 
+--		say_reward ( "seÃ§ebilir." ) 
 		end 
 --		say ( "" ) 
 		return 
 		end 
---		say_title ( "Bedensel Savaş eğitimi" ) 
---		say ( "Bedensel savaş eğitimi hızlı savaşma eğitimi ve" ) 
---		say ( "metodlarını, ayrıca gelişmiş temel saldırı " ) 
---		say ( "tiplerini içerir." ) 
---		say_reward ( "Gereksinim: Seviye 5 ve üstü bir savaşçı olmak" ) 
+--		say_title ( "Bedensel SavaÃ¾ eÃ°itimi" ) 
+--		say ( "Bedensel savaÃ¾ eÃ°itimi hÃ½zlÃ½ savaÃ¾ma eÃ°itimi ve" ) 
+--		say ( "metodlarÃ½nÃ½, ayrÃ½ca geliÃ¾miÃ¾ temel saldÃ½rÃ½ " ) 
+--		say ( "tiplerini iÃ§erir." ) 
+--		say_reward ( "Gereksinim: Seviye 5 ve Ã¼stÃ¼ bir savaÃ¾Ã§Ã½ olmak" ) 
 --		say ( "" ) 
---		local s = select ( "Başla" , "Daha sonra" ) 
+--		local s = select ( "BaÃ¾la" , "Daha sonra" ) 
 		if 2 == s then 
 		return 
 		end 
@@ -51,15 +51,15 @@ quest Bedensel5LvBec begin
 		set_state ( "start" ) 
 		pc . set_skill_group ( 1 ) 
 		pc . clear_skill ( ) 
-		char_log ( 0 , "CLEAR_SKILL" , "Ögretmen silindikten sonraki dogal yetenek." ) 
---		say_title ( "Bedensel savaş eğitimini seçtin." ) 
---		say ( "Hoşgeldin!" ) 
+		char_log ( 0 , "CLEAR_SKILL" , "Ã–gretmen silindikten sonraki dogal yetenek." ) 
+--		say_title ( "Bedensel savaÃ¾ eÃ°itimini seÃ§tin." ) 
+--		say ( "HoÃ¾geldin!" ) 
 		if not pc . is_clear_skill_group ( ) then 
---		say ( "Ders almayı seçtiğin için 4 yetenek puanı " ) 
---		say ( "kazandın. Bu puanları dilediğin herhangi bir" ) 
---		say ( "yeteneğini geliştirmek için kullabilirsin." ) 
+--		say ( "Ders almayÃ½ seÃ§tiÃ°in iÃ§in 4 yetenek puanÃ½ " ) 
+--		say ( "kazandÃ½n. Bu puanlarÃ½ dilediÃ°in herhangi bir" ) 
+--		say ( "yeteneÃ°ini geliÃ¾tirmek iÃ§in kullabilirsin." ) 
 --		say_title ( "Bilgi:" ) 
---		say_reward ( "4 yetenek puanı kazandın." ) 
+--		say_reward ( "4 yetenek puanÃ½ kazandÃ½n." ) 
 --		say ( "" ) 
 		pc . set_skill_level ( 1 , 0 ) 
 		pc . set_skill_level ( 2 , 0 ) 
@@ -121,8 +121,8 @@ quest Bedensel5LvBec begin
 		horse . advance ( )  
 
 		else 
---		say_reward ( "Yeni bir ders seçtiginde," ) 
---		say_reward ( "daha fazla tecrübe puani almayacaksin." ) 
+--		say_reward ( "Yeni bir ders seÃ§tiginde," ) 
+--		say_reward ( "daha fazla tecrÃ¼be puani almayacaksin." ) 
 --		say ( "" ) 
 		end 
 --		clear_letter ( ) 
