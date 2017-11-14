@@ -1,0 +1,369 @@
+quest valcon_war begin
+	state start begin
+	end
+	state run begin
+		when login or levelup or enter with pc.get_level() >= 70 begin
+			set_state(information)
+		end
+	end
+	
+	state information begin
+		when letter begin
+			send_letter("Zindan savaþý ")
+			local a=find_npc_by_vnum(20089)
+			if 0==a then
+			else
+				target.vid("__TARGET__", a, "Pung-Ho")
+			end
+		end
+		
+		when button or info begin
+			say_title("Zindan savaþý ")
+			say("")
+			say("Örümcek Zindaný bekcisi Pung-Ho, sana depremlerin")
+			say("nedenini anlatmak istiyor. Yanýna git ve neler")
+			say("olduðunu öðren.")
+			say("")
+		end
+		
+		when __TARGET__.target.click or 20089.chat."Zindan savaþý " begin
+			target.delete("__TARGET__")
+			say_title("Pung-Ho:")
+			say("")
+			say("Merhaba "..pc.get_name()..", sana bir hikaye anlatayým...")
+			say("Benim adým Pung-Ho ve ben normal biri deðilim.")
+			say("Ben, yýlan kabilelerin arasýna girebilmiþ ")
+			say("tek kiþiyim.")
+			wait()
+			say_title("Pung-Ho:")
+			say("")
+			say("Yýlanlar aslýnda... barýþçýl hayvanlardýr.")
+			say("Kimseye zarar verme niyetinde deðillerdir.")
+			say("Ama 1000 yýl önce, örümcekler yýlanlarýn")
+			say("topraklarýný feth ettiler ve örümcek zindanýna")
+			say("dönüþtürdüler. Yýlanlar ise hayatta kalmak")
+			say("için yavru örümceklerin bakýmlarýný ")
+			say("üstlendiler. Bu yüzden yavru yýlanlar ")
+			say("bakýmsýzlýktan öldüler.")
+			wait()
+			say_title("Pung-Ho:")
+			say("")
+			say("Eðer böyle giderse yýlanlarýn soyu tükenecek.")
+			say("Tek þansýnýmýz isyan ateþini yakmak ve ")
+			say("onlarla mücadelet etmek! Ama önce örümceklerin")
+			say("bize saldýrma niyetinde olduklarýný ")
+			say("kanýtlamam gerek. Eðer kanýt bulmadan onlarla")
+			say("savaþýrsak, yýlanlarýn arasýnda daha fazla")
+			say("kalamam. Yýlan lorduna savaþmayacaðýma dair")
+			say("söz verdim ve bunun karþýlýðýnda aralarýna")
+			say("katýldým.")
+			wait()
+			say_title("Pung-Ho:")
+			say("")
+			say("Örümcekler birbirleriyle iletiþim kurmak")
+			say("için bazý yerlere iz býrakýrlar. Benim buradan")
+			say("ayrýlmam mümkün deðil. Benim için bu izleri")
+			say("arayabilir misin? Bu izlerden bir þeyler")
+			say("çýkarabiliriz. Sana biraz çamur vereyim. Bu")
+			say("çamuru izlerin üzerinde kuruttuðunda çamur")
+			say("izlerin þeklini alacak. Fakat dikkatli ol.")
+			say("Çamur bir kaç dakika içerisinde kurur ve")
+			say("kullanýlamaz hale gelir. Ýzleri zindanýn")
+			say("içersinde bulabileceðinden eminim.")
+			local ok = select("Sana yardým edeceðim.", "Beni bu iþe karýþtýrma.")
+			if ok == 1 then
+				say_title("Pung-Ho:")
+				say("")
+				say("Ýzleri nerede arayacaðýna dair sana bir")
+				say("ip ucu vereceðim...")
+				say("- Pung-Ho bir kaðýt parçasý uzatýr -")
+				say("Unutma, 5 dakikadan uzun süre bu çamuru")
+				say("kullanmazsan kurur ve izlerin üzerine")
+				say("yapýþmaz. Ýyi þanslar!")
+				say("Yýlanlarýn ve benim hayatým sana baðlý!")
+				say_reward("Ýpucunu okumak için göreve týkla.")
+				
+				wait()
+				set_state(lookfortrace)
+			end
+		end
+	end
+	
+	state lookfortrace begin
+		when letter begin
+			send_letter("Pung-Ho'nun ipucu")
+		end
+		
+		when button or info begin
+			say_title("Pung-Ho'nun ipucu:")
+			say("")
+			say("-Pung-Ho'nun verdiði kaðýdý okuyorsun-")
+			say("")
+			say("Benzersiz odalar... Dost ve düþman birlikleri...")
+			say("Erken davranan arzu ettiði þeye ulaþacak.")
+			say("Odanýn bütün köþelerine ayný uzaklýkta olduðun")
+			say("zaman... Yere bak! Dört köþe, sekiz bacak.")
+			say("Bu garip þeyler... Senin aradýðýn izler mi?")
+			say("")
+			say_reward("Ýzi bulduðunu düþündüðünde izin üzerinde dur ve")
+			say_reward("Kil'i kullan. 5 dakikan olduðunu unutma.")
+			say("")
+			local wantto = select("Tamam, gidelim!", "Hayýr, vazgeçtim.")
+			if wantto == 1 then
+				pc.give_item2(30044, 1)
+				pc.setqf("tries", 0)
+				set_state(timeruntrace)
+			elseif wantto == 2 then
+				say("Görevi iptal etmek istiyor musun?")
+				local wantto2 = select("Evet", "Hayýr")
+				if wantto2 == 1 then
+					q.done()
+				end
+			end
+		end
+	end
+	
+	state timeruntrace begin
+		when letter begin
+			send_letter("Ýzleri bul")
+			pc.setqf("limit_time", get_time()+5*60)
+			q.set_clock("Kalan zaman:", pc.getqf("limit_time") - get_time())
+		end
+		
+		when button or info begin
+			say_title("Ýpucu")
+			say("")
+			say("Benzersiz odalar... Dost ve düþman birlikleri...")
+			say("Erken davranan arzu ettiði þeye ulaþacak.")
+			say("Odanýn bütün köþelerine ayný uzaklýkta olduðun")
+			say("zaman... Yere bak! Dört köþe, sekiz bacak.")
+			say("Bu garip þeyler... Senin aradýðýn izler mi?")
+			say("")
+			say_reward("Acele et fazla zaman kalmadý!")
+			say("")
+		end
+		
+		when 30044.use begin
+			local delta_x = pc.get_local_x() - 188
+			local delta_y = pc.get_local_y() - 574
+			if pc.get_map_index() == 71 and (delta_x * delta_x + delta_y * delta_y) <= 25 and (pc.getqf("limit_time"))-get_time() >= 0 then
+				say_title("Tuhaf izler")
+				say("")
+				say("Zemin üzerine çizilmiþ tuhaf semboller var.")
+				say("Bu insan yapýmý bir þeye benzemiyor. Belki de")
+				say("bu bir örümcek izidir! Bunu Pung-Ho'ya")
+				say("göstermeliyim. Belki o bu izlerin ne")
+				say("anlama geldiðini biliyordur.")
+				say("- Ýzlerin kalýbýný kil üzerine çýkardýn. -")
+				say_reward("Bunu Pung-Ho'ya götür.")
+				wait()
+				clear_letter()
+				set_state(backtopungho)
+			elseif pc.getqf("limit_time")-get_time() <= 0 then
+				say("Çok fazla vakit kaybettin ve kil kurudu.")
+				say("Artýk bir iþe yaramaz.")
+				say("")
+				say_reward("Pung-Ho'ya dön ve yeni bir kil al.")
+				pc.remove_item(30044, 1)
+				pc.setqf("tries", pc.getqf("tries") + 1)
+				set_state(failurebacktopungho)
+			elseif (delta_x * delta_x + delta_y * delta_y) >= 25 then
+				chat("Burada bir þey göremiyorum. Burasý doðru yer olamaz.")
+				chat("Baþka yerlere bakmalýyým!")
+			end
+		end
+	end
+
+	state failurebacktopungho begin
+		when letter begin
+			send_letter("Pung-Ho'ya dön")
+			local b = find_npc_by_vnum(20089)
+
+			if b != 0 then
+				target.vid("__TARGET1__", b, "Pung-Ho")
+			end
+		end
+		
+		when button or info begin
+			say_title("Kurumuþ kil")
+			say("")
+			say("Ýzleri zamanýnda bulamadýn! Kil kurudu ve")
+			say("artýk kullanýlacak durumda deðil.")
+			say("Pung-Ho'ya git ve yeni bir kil iste.")
+			say("")
+		end
+	
+		when __TARGET1__.target.click or 20089.chat."Kurumuþ kil" begin
+			target.delete("__TARGET1__")
+			local a = 3 - pc.getqf("tries")
+			if pc.getqf("tries") < 3 then
+				say_title("Pung-Ho:")
+				say("")
+				say("Bu çok kötü...")
+				say("Sana verebileceðim "..a.." kil daha var.")
+				say("Lütfen daha fazla kilimizin olmadýðýný ")
+				say("unutma.")
+				say("")
+				say_reward("3 kez baþarýsýz olursan görev iptal olacak.")
+				say_reward("Elinden gelenin en iyisini yap.")
+				say("")
+				pc.give_item2(30044, 1)
+				set_state(timeruntrace)
+			elseif pc.getqf("tries") == 3 then
+				say_title("Pung-Ho:")
+				say("Ne utaç verici. Daha fazla deneyemeyeceðiz.")
+				say("Kendimizi ve yýlanlarýn soyunu kurtaramadýk!")
+				say("Kaybettik...")
+				say("Çekil önümden!")
+				say("")
+				say_reward("Görevde baþarýsýz oldun.")
+				say("")
+				wait()
+				clear_letter()
+				pc.remove_item(30044, pc.count_item(30044))
+				q.done()
+				set_state(COMPLETE)
+				local tpfail = pc.get_empire()
+				if tpfail == 0 then
+					pc.warp(469300,964200)
+				elseif tpfail == 1 then
+					pc.warp(55700,157900)
+				elseif tpfail == 2 then
+					pc.warp(969600,278400)
+				end
+			end
+		end
+	end
+	
+	state backtopungho begin
+		when letter begin
+			send_letter("Bir kanýt buldun")
+			local c = find_npc_by_vnum(20089)
+			if c != 0 then
+				target.vid("__TARGET2__", c, "Pung-Ho")
+			end
+		end
+		
+		when button or info begin
+			say_title("Bir kanýt buldun")
+			say("")
+			say("Bunu Pung-Ho'ya göstersem iyi olacak!")
+			say("Belki ne anlama geldiðini biliyordur...")
+			say("")
+		end
+	
+		when __TARGET2__.target.click or 20089.chat."Bir kanýt buldum" begin
+				target.delete("__TARGET2__")
+				pc.remove_item(30044, pc.count_item(30044))
+				say_title("Pung-Ho:")
+				say("Hmm...")
+				say("Bir okuyalým bakalým...")
+				setdelay(200)
+				say("")
+				resetdelay()
+				say("Aman tanrým! Tüm erkek yýlanlara suikast")
+				say("düzenleyip yýlanlarýn soyunu kuratacaklar!")
+				say("Bu olamaz! Buna izin veremem!")
+				say("")
+				wait()
+				say_title("Pung-Ho:")
+				say("Bekle...")
+				say("Eðer biz onlarýn kraliçesini öldürürsek ne")
+				say("olur? Eminim bunu yapabilirsin.")
+				----"123456789012345678901234567890123456789012345678901234567890"|
+				say("Karþýlýðýnda sahip olduðum her þeyi veririm!")
+				say("")
+				local acceptking = select("Yanýndayým", "Bu çok zor")
+				if acceptking == 1 then
+					say_title("Pung-Ho:")
+					say("")
+					say("Çok teþekkür ederim!")
+					say("Onu yen ve ödül için bana gel.")
+					say_reward("Kraliçe Örümceði yen ve Pung-Ho'ya dön.")
+					say("")
+					set_state(killspiderleader)
+				elseif acceptking == 2 then
+					say_title("Pung-Ho:")
+					say("")
+					say("Anlýyorum... Bu durumda bu iþi kendim")
+					say("halledeceðim. Buraya kadar yardým ettiðin")
+					say("için teþekkür ederim. Bunun karþýlýðýný ")
+					say("alacaksýn.")
+					say_reward("10.000.000 EXP kazandýn.")
+					pc.give_exp2(10000000)
+					q.done()
+					set_state(COMPLETE)
+				end
+		end
+	end
+	
+	state killspiderleader begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Kraliçe Örümceði bul")
+			q.set_title("Kraliçe Örümceði yen")
+			q.start()
+		end
+
+		when info or button begin
+			say_title("Kraliçe Örümceði bul")
+			say("")
+			say("Örümceklerin þeytani planýný önlemek ve")
+			say("yýlanlarýn soyunu kurtarmak için zindanýn")
+			say("sonundaki Kraliçe Örümceði maðlup et.")
+			say("")
+		end
+		
+		when kill with npc.get_race() == 2091 begin
+			say_pc_name()
+			say("")
+			say("Pençe örümceklerinin lideri, Kraliçe Örümceði")
+			say("maðlup ettin! Pung-Ho'ya dön.")
+			say("")
+			set_state(report_success)
+		end
+	end
+	
+	state report_success begin
+		when letter begin
+			setskin(NOWINDOW)
+			makequestbutton("Pung-Ho'ya dön")
+			q.set_title("Kraliçe Örümceði yendin.")
+			q.start()
+			local v = find_npc_by_vnum(20089)
+
+			if v != 0 then
+				target.vid("__TARGET3__", v, "Pung-Ho")
+			end
+
+		end
+
+		when info or button begin
+			say("")
+			say("Pung-Ho'ya dön ve görevi baþarýyla")
+			say("tamamladýðýný bildir.")
+		end
+		
+		when __TARGET3__.target.click or 20089.chat."Zaferini bildir" begin
+			target.delete("__TARGET3__")
+			say_title("Pung-Ho:")
+			say("")
+			say("Harika!")
+			say("Seninle gurur duyuyorum. Örümcekler hatalarýný ")
+			say("anlamýþlardýr. Artýk bizi tehdit edemeyecekler.")
+			say("Her þey tekrar eskisi gibi güzel olacak!")
+			say("En büyük ödülü hak ettin!")
+			say_reward("30.000.000 EXP kazandýn.")
+			say_reward("17.000.000 Yang kazandýn.")
+			say_reward("3x Ruh Taþý kazandýn.")
+			pc.change_money(17000000)
+			pc.give_exp2(30000000)
+			pc.give_item2(50513, 3)
+			q.done()
+			set_state(COMPLETE)
+		end
+	end
+	
+	state COMPLETE begin
+	end
+end

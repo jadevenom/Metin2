@@ -1,0 +1,14 @@
+collect_quest_lv30	COLLECT_QUEST
+collect_quest_lv40	COLLECT_QUEST
+collect_quest_lv50	COLLECT_QUEST
+collect_quest_lv60	COLLECT_QUEST
+collect_quest_lv70	COLLECT_QUEST
+collect_quest_lv80	COLLECT_QUEST
+collect_quest_lv85	COLLECT_QUEST
+collect_quest_lv90	COLLECT_QUEST
+collect_quest_lv92	COLLECT_QUEST
+collect_quest_lv94	COLLECT_QUEST
+flame_dungeon_pass	COLLECT_QUEST
+anonymous_letter	COLLECT_QUEST
+dark_nation	COLLECT_QUEST
+dragon_soul_status	COLLECT_QUEST

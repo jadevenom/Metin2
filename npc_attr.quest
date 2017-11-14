@@ -1,0 +1,280 @@
+quest npc_attr begin
+	state start begin
+		when 9004.chat."Eþyaya bonus ekle" with game.get_event_flag("attr_npc") != 0 begin
+		say_title(mob_name(npc.get_race()))
+		say("Merhaba! Senin için eþyalarýna bonus")
+		say("ekleyebilirim. Bunun karþýlýðýnda senden")
+		say(game.get_event_flag("bonus_fiyat").." milyon yang isteyeceðim. Bonus eklemek")
+		say("istediðin eþyayý üzerime sürükle.")
+		end
+		
+		---
+		
+		when 9004.chat."GM: Bonus ekleme iþlemleri" with pc.is_gm() begin
+		local s = select("Bonus ekleme açma/kapama","Bonus ekleme fiyatý belirle","Hiçbir þey")
+			if s == 1 then
+				if game.get_event_flag("attr_npc") == 0 then
+				say("Npc üzerinden bonus ekleme þu anda kapalý.")
+				say("Aktif etmek istiyor musun?")
+					if select("Evet","Hayýr") == 2 then return end	
+				game.set_event_flag("attr_npc",1)
+				else
+				say("Npc üzerinden bonus ekleme þu anda açýk.")
+				say("Kapatmak istiyor musun?")
+					if select("Evet","Hayýr") == 2 then return end
+				game.set_event_flag("attr_npc",0)
+				end
+			elseif s == 2 then
+			say("Yazacaðýn deðer 1 milyonla çarpýlýr.")
+			say("Aþaðýdaki kutuya 50 yazdýðýnda fiyat 50 milyon")
+			say("yang olur.")
+			local f = tonumber(input())
+			say("Fiyat "..f.." milyon yang olacak. Onaylýyor musun?")
+				if select("Evet","Hayýr") == 2 then return end
+			game.set_event_flag("bonus_fiyat",f)
+			else 
+			return
+			end
+		end
+		
+		---
+		
+		when 9004.take with item.get_type() <= 2 and game.get_event_flag("attr_npc") != 0 begin
+			if item.get_vnum() >= 8000 and item.get_vnum() <= 8009 or
+			item.get_vnum() >= 79501 and item.get_vnum() <= 79504 or
+			item.get_vnum() >= 11901 and item.get_vnum() <= 11914 or
+			item.get_addon_type() != 0 then
+			say_title(mob_name(npc.get_race()))
+			say("Bu eþyaya bonus ekleyemem.")
+			return
+			end
+			
+			if item.is_binded() then
+			say_title(mob_name(npc.get_race()))
+			say("Ruha baðlý eþyaya bonus ekleyemem.")
+			return
+			end
+		
+		local itemVnum = item.get_vnum()			
+		local cost = game.get_event_flag("bonus_fiyat")*1000000
+		local b_table = {}
+		local v_table = {}
+		local m_table = {}
+		local b_type_0, b_type_1, b_type_2, b_type_3, b_type_4
+		local b_value_0, b_value_1, b_value_2, b_value_3, b_value_4
+		local m_value_0, m_value_1, m_value_2, m_value_3, m_value_4
+		local apply_type00 = game.mysql_query("SELECT applytype0 FROM player.item_proto WHERE vnum = '"..itemVnum.."' LIMIT 1")
+		local apply_type11 = game.mysql_query("SELECT applytype1 FROM player.item_proto WHERE vnum = '"..itemVnum.."' LIMIT 1")
+		local apply_type22 = game.mysql_query("SELECT applytype2 FROM player.item_proto WHERE vnum = '"..itemVnum.."' LIMIT 1")
+		local apply_type0 = tonumber(apply_type00[1][1])
+		local apply_type1 = tonumber(apply_type11[1][1])
+		local apply_type2 = tonumber(apply_type22[1][1])
+		
+			if pc.get_gold() < cost then
+			say_title(mob_name(npc.get_race()))
+			say("Üzgünüm ama yeterli yang olmadan bu iþi")
+			say("yapamam.")
+			return
+			end
+		
+			if item.get_type() == 1 then
+			b_table = npc_attr.create_attr_table(item.get_type(),apply_type0,apply_type1,apply_type2,1)
+			v_table = npc_attr.create_attr_table(item.get_type(),apply_type0,apply_type1,apply_type2,2)
+			m_table = npc_attr.create_attr_table(item.get_type(),apply_type0,apply_type1,apply_type2,3)
+			else
+			b_table = npc_attr.create_attr_table(item.get_sub_type()+2,apply_type0,apply_type1,apply_type2,1)
+			v_table = npc_attr.create_attr_table(item.get_sub_type()+2,apply_type0,apply_type1,apply_type2,2)
+			m_table = npc_attr.create_attr_table(item.get_sub_type()+2,apply_type0,apply_type1,apply_type2,3)
+			end
+		table.insert(b_table, "Vazgeç ")
+		say("Birinci bonusu seç.")
+		local b_0 = select_table(b_table)
+			if b_0 == table.getn(b_table) then return end
+		b_type_0 = b_table[b_0]
+		b_value_0 = v_table[b_0]
+		m_value_0 = m_table[b_0]
+		table.remove(b_table,b_0)
+		table.remove(v_table,b_0)
+		table.remove(m_table,b_0)
+		say("Ýkinci bonusu seç.")
+		local b_1 = select_table(b_table)
+			if b_1 == table.getn(b_table) then return end
+		b_type_1 = b_table[b_1]
+		b_value_1 = v_table[b_1]
+		m_value_1 = m_table[b_1]
+		table.remove(b_table,b_1)
+		table.remove(v_table,b_1)
+		table.remove(m_table,b_1)
+		say("Üçüncü bonusu seç.")
+		local b_2 = select_table(b_table)
+			if b_2 == table.getn(b_table) then return end
+		b_type_2 = b_table[b_2]
+		b_value_2 = v_table[b_2]
+		m_value_2 = m_table[b_2]
+		table.remove(b_table,b_2)
+		table.remove(v_table,b_2)
+		table.remove(m_table,b_2)
+		say("Dördüncü bonusu seç.")
+		local b_3 = select_table(b_table)
+			if b_3 == table.getn(b_table) then return end
+		b_type_3 = b_table[b_3]
+		b_value_3 = v_table[b_3]
+		m_value_3 = m_table[b_3]
+		table.remove(b_table,b_3)
+		table.remove(v_table,b_3)
+		table.remove(m_table,b_3)
+		say("Beþinci bonusu seç.")
+		local b_4 = select_table(b_table)
+			if b_4 == table.getn(b_table) then return end
+		b_type_4 = b_table[b_4]
+		b_value_4 = v_table[b_4]
+		m_value_4 = m_table[b_4]
+		table.remove(b_table,b_4)
+		table.remove(v_table,b_4)
+		say_title(mob_name(npc.get_race()))
+		say("Bonuslarý ekleyeceðin eþya:")
+		say_item_vnum(item.get_vnum())
+		wait()
+		say_title(mob_name(npc.get_race()))
+		say("Bonuslar")
+		say("1. "..b_type_0.." "..m_value_0)
+		say("2. "..b_type_1.." "..m_value_1)
+		say("3. "..b_type_2.." "..m_value_2)
+		say("4. "..b_type_3.." "..m_value_3)
+		say("5. "..b_type_4.." "..m_value_4)
+		say("")
+		say_reward("Onaylýyor musun?")
+			if select("Evet","Hayýr") == 2 then
+			return
+			end
+			if item.get_attr_type(0) > 0 then item.set_attribute(0,54,1) end
+			if item.get_attr_type(1) > 0 then item.set_attribute(1,55,1) end
+			if item.get_attr_type(2) > 0 then item.set_attribute(2,56,1) end
+			if item.get_attr_type(3) > 0 then item.set_attribute(3,57,1) end
+			if item.get_attr_type(4) > 0 then item.set_attribute(4,58,1) end
+		item.set_attribute(0,b_value_0,m_value_0)
+		item.set_attribute(1,b_value_1,m_value_1)
+		item.set_attribute(2,b_value_2,m_value_2)
+		item.set_attribute(3,b_value_3,m_value_3)
+		item.set_attribute(4,b_value_4,m_value_4)
+		pc.change_gold(-cost)
+		end
+		
+		---
+		
+		function create_attr_table(a,b,c,d,e)
+				--	type		Silah		Zýrh		Kask		Kalkan		Bilezik		Ayakkabý		Kolye		Küpe		Max		Bonus adý
+		local attrs = {
+					[1] = {		false,		true,		false,		false,		true,		true,			true,		false,		2000,	"Max. HP",	1	},
+					[2] = {		false,		true,		false,		false,		true,		true,			true,		false,		80,		"Max. SP",	2	},
+					[3] = {		true,		false,		false,		true,		false,		false,			false,		false,		12,		"Canlýlýk",	3	},
+					[4] = {		true,		false,		false,		true,		false,		false,			false,		false,		12,		"Zeka",	4	},
+					[5] = {		true,		false,		false,		true,		false,		false,			false,		false,		12,		"Güç ",	5	},
+					[6] = {		true,		false,		false,		true,		false,		false,			false,		false,		12,		"Çeviklik",	6	},
+					[7] = {		false,		false,		true,		false,		false,		true,			false,		false,		8,		"Saldýrý Hýzý ",	7	},
+					[8] = {		false,		false,		false,		false,		false,		false,			false,		true,		20,		"Hareket Hýzý ",	8	},
+					[9] = {		true,		true,		false,		false,		false,		false,			false,		false,		20,		"Büyü Hýzý ",	9	},
+					[10] = {	false,		false,		true,		false,		false,		false,			true,		false,		20,		"HP Üretimi",	10	},
+					[11] = {	false,		false,		true,		false,		false,		false,			true,		false,		20,		"SP Üretimi",	11	},
+					[12] = {	true,		false,		true,		false,		false,		false,			false,		false,		8,		"Zehirleme Þansý ",	12	},
+					[13] = {	true,		false,		false,		false,		false,		true,			true,		false,		8,		"Sersemletme Þansý ",	13	},
+					[14] = {	true,		false,		false,		false,		false,		true,			true,		false,		8,		"Yavaþlama Þansý ",	14	},
+					[15] = {	true,		false,		false,		false,		false,		true,			true,		false,		15,		"Kritik Vuruþ Þansý ",	15	},
+					[16] = {	true,		false,		false,		false,		true,		false,			true,		false,		15,		"Delici Vuruþ için þansý ",	16	},
+					[17] = {	true,		false,		true,		true,		true,		false,			false,		true,		15,		"Yarý insanlara karþý güçlü ",	17	},
+					[18] = {	true,		false,		true,		true,		true,		false,			false,		true,		20,		"Hayvanlara karþý güçlü ",	18	},
+					[19] = {	true,		false,		true,		true,		true,		false,			false,		true,		20,		"Orklara karþý güçlü ",	19	},
+					[20] = {	true,		false,		true,		true,		true,		false,			false,		true,		20,		"Mistiklere karþý güçlü ",	20	},
+					[21] = {	true,		false,		true,		true,		true,		false,			false,		true,		20,		"Ölümsüzlere karþý güçlü ",	21	},
+					[22] = {	true,		false,		true,		true,		true,		false,			false,		true,		20,		"Þeytanlara karþý güçlü ",	22	},
+					[23] = {	false,		true,		false,		false,		true,		false,			false,		false,		15,		"Hasar, HP ile absorbe edilecek",	23	},
+					[24] = {	false,		true,		false,		false,		true,		false,			false,		false,		15,		"Hasar, SP ile absorbe edilecek",	24	},
+					[25] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	25	},
+					[26] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	26	},
+					[27] = {	false,		false,		false,		true,		false,		false,			false,		false,		15,		"Yakýn dövüþ saldýrýlarý bloklama þansý ",	27	},
+					[28] = {	false,		false,		true,		false,		false,		true,			false,		false,		15,		"Oklardan korunma þansý ",	28	},
+					[29] = {	false,		true,		false,		false,		false,		true,			true,		true,		15,		"Kýlýç Savunmasý ",	29	},
+					[30] = {	false,		true,		false,		false,		false,		true,			true,		true,		15,		"Çift-El Savunma",	30	},
+					[31] = {	false,		true,		false,		false,		false,		true,			true,		true,		15,		"Býçak Savunmasý ",	31	},
+					[32] = {	false,		true,		false,		false,		false,		true,			true,		true,		15,		"Çan Savunmasý ",	32	},
+					[33] = {	false,		true,		false,		false,		false,		true,			true,		true,		15,		"Yelpaze Savunmasý ",	33	},
+					[34] = {	false,		true,		false,		false,		false,		true,			true,		true,		15,		"Oka karþý dayanýklýlýk",	34	},
+					[35] = {	false,		true,		true,		false,		true,		false,			false,		false,		15,		"Ateþe karþý dayanýklýlýk",	35	},
+					[36] = {	false,		true,		true,		false,		true,		false,			false,		false,		15,		"Þimþeðe karþý dayanýklýlýk",	36	},
+					[37] = {	false,		true,		true,		false,		true,		false,			false,		false,		15,		"Büyüye karþý dayanýklýlýk",	37	},
+					[38] = {	false,		true,		true,		false,		true,		false,			false,		false,		15,		"Rüzgara karþý dayanýklýlýk",	38	},
+					[39] = {	false,		true,		false,		true,		false,		false,			false,		false,		15,		"Yakýn dövüþ saldýrýlarýný yansýtma þansý ",	39	},
+					[40] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	40	},
+					[41] = {	false,		false,		false,		false,		false,		false,			false,		true,		15,		"Zehre karþý koyma",	41	},
+					[42] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	42	},
+					[43] = {	false,		false,		false,		true,		false,		true,			true,		false,		20,		"Exp Bonus þansý ",	43	},
+					[44] = {	false,		false,		false,		true,		false,		true,			true,		false,		20,		"Ýki kat Yang düþme þansý ",	44	},
+					[45] = {	false,		false,		false,		false,		true,		false,			false,		true,		20,		"Ýki kat Eþya düþme þansý ",	45	},
+					[46] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	46	},
+					[47] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	47	},
+					[48] = {	false,		false,		false,		true,		false,		false,			false,		false,		1,		"Sersemlik karþýsýnda baðýþýklýlýk",	48	},
+					[49] = {	false,		false,		false,		true,		false,		false,			false,		false,		1,		"Yavaþlama karþýsýnda baðýþýklýk",	49	},
+					[50] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	50	},
+					[51] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	51	},
+					[52] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	52	},
+					[53] = {	false,		true,		false,		false,		false,		false,			false,		false,		50,		"Saldýrý Deðeri",	53	},
+					[54] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	54	},
+					[55] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	55	},
+					[56] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	56	},
+					[57] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	57	},
+					[58] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	58	},
+					[59] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	59	},
+					[60] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	60	},
+					[61] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	61	},
+					[62] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	62	},
+					[63] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	63	},
+					[64] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	64	},
+					[65] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	65	},
+					[66] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	66	},
+					[67] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	67	},
+					[68] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	68	},
+					[69] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	69	},
+					[70] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	70	},
+					[71] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	71	},
+					[72] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	72	},
+					[73] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	73	},
+					[74] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	74	},
+					[75] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	75	},
+					[76] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	76	},
+					[77] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	77	},
+					[78] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	78	},
+					[79] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	79	},
+					[80] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	80	},
+					[81] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	81	},
+					[82] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	82	},
+					[83] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	83	},
+					[84] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	84	},
+					[85] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	85	},
+					[86] = {	false,		false,		false,		false,		false,		false,			false,		false,		0,		"NO_USE",	86	},
+					[87] = {	false,		true,		true,		false,		true,		false,			false,		false,		15,		"Buz Direnci",	87	},
+					[88] = {	false,		true,		true,		false,		true,		false,			false,		false,		15,		"Dünya Direnci",	88	},
+					[89] = {	false,		true,		true,		false,		true,		false,			false,		false,		15,		"Karanlýk Direnci",	89	}
+					}
+					
+		local s_table = {}
+		local vnum_table = {}
+		local value_table = {}
+			for i = 1,table.getn(attrs) do
+				if attrs[i][a] != false then
+					if b != attrs[i][11] and c != attrs[i][11] and d != attrs[i][11] then
+					table.insert(value_table,attrs[i][9])
+					table.insert(s_table,attrs[i][10])
+					table.insert(vnum_table,attrs[i][11])			
+					end					
+				end
+			end
+			if e == 1 then
+			return s_table
+			elseif e == 2 then
+			return vnum_table
+			else
+			return value_table
+			end
+		end
+	end
+end

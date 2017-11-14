@@ -1,0 +1,235 @@
+8001 mystery_box1
+1092 devil_stone6
+20073 devil_stone5
+493 heukpung_gupae
+504 orangkae_jangsu
+635 jinunggwi_janggun
+1091 devil_stone3
+1302 greenfrog_general
+2004 jipgae_geomi
+2104 jeongal_ingan
+8015 devil_stone1
+9001 weapon_shop
+9002 armor_shop
+9003 etc_shop
+9005 warehouse_keeper
+9006 oldwoman
+9009 fisher
+11000 guild_man1
+11001 guild_war_observer1
+11002 guild_man2
+11003 guild_war_observer2
+11004 guild_man3
+11005 guild_war_observer3
+20001 alchemist
+20011 eulduji
+20012 yurang
+20015 deokbae
+20016 blacksmith
+20017 yuhwan
+20018 baekgo
+20019 hunter
+20020 old_pirate
+20021 ariyeong
+20022 huanso
+20023 bookworm
+20024 yuhwarang
+20031 santa
+20032 xmas_tree
+20300 skill_group1_1
+20301 skill_group1_2
+20302 skill_group1_3
+20303 skill_group1_4
+20304 skill_group1_5
+20305 skill_group1_6
+20306 skill_group1_7
+20307 skill_group1_8
+20320 skill_group2_1
+20321 skill_group2_2
+20322 skill_group2_3
+20323 skill_group2_4
+20324 skill_group2_5
+20325 skill_group2_6
+20326 skill_group2_7
+20327 skill_group2_8
+20340 skill_group3_1
+20341 skill_group3_2
+20342 skill_group3_3
+20343 skill_group3_4
+20344 skill_group3_5
+20345 skill_group3_6
+20346 skill_group3_7
+20347 skill_group3_8
+20348 deviltower_man
+100000 attr0
+100001 attr1
+100002 attr2
+100003 attr3
+100004 attr4
+100005 attr5
+100006 attr6
+100007 attr7
+100008 attr8
+100009 attr9
+100010 attr10
+100011 attr11
+100012 attr12
+100013 attr13
+100014 attr14
+100015 attr15
+30101   devilcatacomb_credit_stone
+30102   devilcatacomb_floor5_stone
+30103   devilcatacomb_floor2_stone
+8038    devilcatacomb3_stone
+20367   devilcatacomb_man
+30104   devilcatacomb_floor4_stone
+2591    devilcatacomb_devil_king
+2597    devilcatacomb_devil_great_king
+2598    devilcatacomb_devil_emperor
+20095   seon_hae
+9007    silah_saticisi
+20402   ic_gudu_ogretmeni
+20359   sandik
+20417 okey_masasi
+20418 agni_opera
+20990 pasta_cocuk
+20408 Tapınak Bekçisi
+20409 Orman Bekçisi
+20410 Orman Casusu
+20411 Orman Kaşifi
+20412 Orman Bekçileri Lideri
+20413 Kawuco
+20415 Portal
+9004 Olay Yardımcısı
+34041 Küçük Maymun
+34045 Küçük Örümcek
+34049 Küçük Razadör
+34053 Küçük Nemere
+34042 Küçük Maymun (Kahraman)
+34046 Küçük Örümcek (Kahraman)
+34050 Küçük Razadör (Kahraman)
+34054 Küçük Nemere (Kahraman)
+34064 Küçük Meley
+20041 Sarhoş
+6301 Ochao Savaşçısı
+6302 Ochao Askeri
+6303 Ochao Büyücüsü
+6304 Ochao Celladı
+6305 Ochao Generali
+6306 Güçlü Ochao Savaşçısı
+6307 Güçlü Ochao Askeri
+6308 Güçlü Ochao Büyücüsü
+6309 Güçlü Ochao Celladı
+6310 Güçlü Ochao Generali
+6311 Ochao Muhafızı
+6390 Ochao Dükü
+6391 Güçlü Ochao Dükü
+6400 En Tai Bekçisi
+6401 En-Tai Savaşçısı
+6402 En-Tai Savaşçısı
+6403 En-Tai Rahibi
+6404 En Tai Şifacısı
+6405 En Tai Bekçisi
+6406 En Tai İmhacısı
+6407 En Tai Hükümdarı
+6408 Bagjanamu
+6409 Güçlü En Tai Savaşçısı
+6410 Güçlü En Tai Savaşçısı
+6411 Güçlü En Tai Rahibi
+6412 Güçlü En Tai Şifacısı
+6413 Güçlü En Tai Bekçisi
+6414 Güçlü En Tai İmhacısı
+6417 Ochao Büyücüsü
+6418 Jotun Thrym
+8089 Ağaç Yaratığı Metini
+8099 Orman Metini
+8129 Baş Melek Metni
+8139 Dağ Mantarı Metini
+8149 Zehirli Mantar Metni
+8159 Su Mantarı Metini
+20408 Tapınak Bekçisi
+20409 Orman Bekçisi
+20410 Orman Casusu
+20411 Orman Kaşifi
+20412 Orman Bekçileri Lideri
+20413 Kawuco
+20415 Portal
+6420 Gölge Savaşçısı
+6007 Kor Alev Sakallısı
+6009 Kor Alev Lordu
+6110 Magma Yeti
+6111 Lav Golemi
+6112 Magma Böceği
+6113 Magma Golemi
+6114 Magma Kristali
+6115 Magma Ejderi
+6116 Ejderha Bekçisi İdall
+6117 İdall'in Cellati
+6118 Ejderha Heykeli
+6193 Ejderha Kraliçesi Meley
+20388 Ejderha Kapısı
+20419 Ejderha Bekçisi Dolnarr
+20420 Altın Ejderha Kutusu
+20421 Ejderha Bekçisi Jaharr
+20422 Ejderha Yumurtası
+8169 Bira Varili
+20233 Muffin (kahve aksesuar)
+20234 Nugget (kahve aksesuar)
+20235 Muffin (mavi aksesuar)
+20236 Nugget (mavi aksesuar)
+20237 Muffin (yeşil aksesuar)
+20238 Nugget (yeşil aksesuar)
+20239 Şimşek
+20240 Gümbürtü
+20241 Nugget (lacivert)
+20242 Muffin (gül rengi)
+20243 Kizaghan'ın Atı
+20244 Nirvana Ejderhası
+20245 Samsara Ejderhası
+20246 Manni
+20247 Manu
+20248 Kahverengi Dövüş Tülüsü
+20249 Siyah Dövüş Tülüsü
+34058 Valentino
+34059 Valentinia
+34070 Kırmızı Elf 
+34071 Yeşil Elf
+34066 Bonsa
+34084 Donni
+34085 Frank
+34026 Balkabağı Kafası
+34027 Küçük Süpürgeci
+34028 Kar Tanesi
+34029 Çancık
+34030 Cupido
+34031 Öfkeli Kalp
+34032 Mavi Hilal
+34039 Bebek Huashin
+34055 Bruce
+34056 Wayne
+34057 Robin
+34060 Valentino+
+34061 Valentinia+
+34033 Kırmızı Hilal
+34034 Beyaz Kuzucuk
+34035 Mavi Koç
+34062 Ay feneri (turuncu)
+34063 Ay feneri (mavi)
+34067 Bayan Jiangshi+
+34068 Bay Jiangshi+
+34069 Genç Jiangshi
+34072 Kırmızı Elf+
+34007 Khan
+34005 Porki
+34008 Leonidas
+34013 Küçük Cellatcık
+34014 Altın Cellatcık
+34011 Knuud
+34017 Kutup Porki
+20042 Seyyar Satıcı
+34016 Yeşim Ankası
+34019 Arktik Khan
+34023 Yavru Panter
+34021 Sheldon
+
+

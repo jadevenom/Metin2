@@ -1,0 +1,35 @@
+quest npc_talk begin
+	state start begin
+		-- when 20091.chat."Marketi aç " begin
+			-- setskin(NOWINDOW)
+			-- npc.open_shop()
+		-- end
+		when 20093.chat."Kan taþý satýn al " begin --- sürgün giriþ npc
+			say_title("Koe-Pung:")
+			say("")
+			say("5 Milyon yang karþýlýðýnda sana")
+			say("kan taþý verebilirim.")
+			say("")
+			say("Satýn almak istiyor musun?")
+			say("")
+			local satin = select("Satýn al","Alma")
+			if satin == 1 then
+				local ucret = 5000000
+				if pc.money < ucret then
+					say_title("Koe-Pung:")
+					say("")
+					say("Yeterli yangýn yok.")
+					say("")
+					return
+				else
+					pc.changegold(-ucret)
+					pc.give_item2("30190",1)
+				end
+			end
+		end
+		-- when 20016.chat."Marketi aç " begin
+			-- setskin(NOWINDOW)
+			-- npc.open_shop()
+		-- end
+	end
+end

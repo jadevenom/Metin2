@@ -1,0 +1,317 @@
+quest ride begin
+	state start begin
+		function Ride( vnum, remain_time )
+			ride_info = {
+				[52001] = { 20201,  apply.MOV_SPEED, 1},				
+				[52002] = { 20201,  apply.MOV_SPEED, 1},				
+				[52003] = { 20201,  apply.MOV_SPEED, 1},				
+				[52004] = { 20201,  apply.MOV_SPEED, 1},				
+				[52005] = { 20201,  apply.MOV_SPEED, 1},				
+				[52006] = { 20205,  apply.ATTBONUS_MONSTER, 3},	
+				[52007] = { 20205,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52008] = { 20205,  apply.MAX_HP,250},			
+				[52009] = { 20205,  apply.DEF_GRADE_BONUS, 50},	
+				[52010] = { 20205,  apply.ATT_GRADE_BONUS, 30},	
+				[52011] = { 20209,  apply.ATTBONUS_MONSTER, 5},	
+				[52012] = { 20209,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52013] = { 20209,  apply.MAX_HP,500},		 	
+				[52014] = { 20209,  apply.DEF_GRADE_BONUS, 150},	
+				[52015] = { 20209,  apply.ATT_GRADE_BONUS, 100},	
+
+				[52016] = { 20202,  apply.MOV_SPEED, 1},				
+				[52017] = { 20202,  apply.MOV_SPEED, 1},				
+				[52018] = { 20202,  apply.MOV_SPEED, 1},				
+				[52019] = { 20202,  apply.MOV_SPEED, 1},				
+				[52020] = { 20202,  apply.MOV_SPEED, 1},				
+				[52021] = { 20206,  apply.ATTBONUS_MONSTER, 3},	
+				[52022] = { 20206,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52023] = { 20206,  apply.MAX_HP,250},			
+				[52024] = { 20206,  apply.DEF_GRADE_BONUS, 50},	
+				[52025] = { 20206,  apply.ATT_GRADE_BONUS, 30},	
+				[52026] = { 20210,  apply.ATTBONUS_MONSTER, 5},	
+				[52027] = { 20210,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52028] = { 20210,  apply.MAX_HP,500},		 	
+				[52029] = { 20210,  apply.DEF_GRADE_BONUS, 150},	
+				[52030] = { 20210,  apply.ATT_GRADE_BONUS, 100},			
+				
+				[52031] = { 20204,  apply.MOV_SPEED, 1},				
+				[52032] = { 20204,  apply.MOV_SPEED, 1},				
+				[52033] = { 20204,  apply.MOV_SPEED, 1},				
+				[52034] = { 20204,  apply.MOV_SPEED, 1},				
+				[52035] = { 20204,  apply.MOV_SPEED, 1},				
+				[52036] = { 20208,  apply.ATTBONUS_MONSTER, 3},	
+				[52037] = { 20208,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52038] = { 20208,  apply.MAX_HP,250},			
+				[52039] = { 20208,  apply.DEF_GRADE_BONUS, 50},	
+				[52040] = { 20208,  apply.ATT_GRADE_BONUS, 30},	
+				[52041] = { 20212,  apply.ATTBONUS_MONSTER, 5},	
+				[52042] = { 20212,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52043] = { 20212,  apply.MAX_HP,500},		 	
+				[52044] = { 20212,  apply.DEF_GRADE_BONUS, 150},	
+				[52045] = { 20212,  apply.ATT_GRADE_BONUS, 100},	
+				
+				[52046] = { 20203,  apply.MOV_SPEED, 1},				
+				[52047] = { 20203,  apply.MOV_SPEED, 1},				
+				[52048] = { 20203,  apply.MOV_SPEED, 1},				
+				[52049] = { 20203,  apply.MOV_SPEED, 1},				
+				[52050] = { 20203,  apply.MOV_SPEED, 1},				
+				[52051] = { 20207,  apply.ATTBONUS_MONSTER, 3},	
+				[52052] = { 20207,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52053] = { 20207,  apply.MAX_HP,250},			
+				[52054] = { 20207,  apply.DEF_GRADE_BONUS, 50},	
+				[52055] = { 20207,  apply.ATT_GRADE_BONUS, 30},	
+				[52056] = { 20211,  apply.ATTBONUS_MONSTER, 5},	
+				[52057] = { 20211,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52058] = { 20211,  apply.MAX_HP,500},		 	
+				[52059] = { 20211,  apply.DEF_GRADE_BONUS, 150},	
+				[52060] = { 20211,  apply.ATT_GRADE_BONUS, 100},	
+				
+				[52061] = { 20213,  apply.MOV_SPEED, 1},				
+				[52062] = { 20213,  apply.MOV_SPEED, 1},				
+				[52063] = { 20213,  apply.MOV_SPEED, 1},				
+				[52064] = { 20213,  apply.MOV_SPEED, 1},				
+				[52065] = { 20213,  apply.MOV_SPEED, 1},				
+				[52066] = { 20214,  apply.ATTBONUS_MONSTER, 3},	
+				[52067] = { 20214,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52068] = { 20214,  apply.MAX_HP,250},			
+				[52069] = { 20214,  apply.DEF_GRADE_BONUS, 50},	
+				[52070] = { 20214,  apply.ATT_GRADE_BONUS, 30},	
+				[52071] = { 20215,  apply.ATTBONUS_MONSTER, 5},	
+				[52072] = { 20215,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52073] = { 20215,  apply.MAX_HP,500},		 	
+				[52074] = { 20215,  apply.DEF_GRADE_BONUS, 150},	
+				[52075] = { 20215,  apply.ATT_GRADE_BONUS, 100},	
+				
+				[52076] = { 20216,  apply.MOV_SPEED, 1},				
+				[52077] = { 20216,  apply.MOV_SPEED, 1},				
+				[52078] = { 20216,  apply.MOV_SPEED, 1},				
+				[52079] = { 20216,  apply.MOV_SPEED, 1},				
+				[52080] = { 20216,  apply.MOV_SPEED, 1},				
+				[52081] = { 20217,  apply.ATTBONUS_MONSTER, 3},	
+				[52082] = { 20217,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52083] = { 20217,  apply.MAX_HP,250},			
+				[52084] = { 20217,  apply.DEF_GRADE_BONUS, 50},	
+				[52085] = { 20217,  apply.ATT_GRADE_BONUS, 30},	
+				[52086] = { 20218,  apply.ATTBONUS_MONSTER, 5},	
+				[52087] = { 20218,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52088] = { 20218,  apply.MAX_HP,500},		 	
+				[52089] = { 20218,  apply.DEF_GRADE_BONUS, 150},	
+				[52090] = { 20218,  apply.ATT_GRADE_BONUS, 100},
+
+				[52091] = { 20223,  apply.MOV_SPEED, 1},				
+				[52092] = { 20223,  apply.MOV_SPEED, 1},				
+				[52093] = { 20223,  apply.MOV_SPEED, 1},				
+				[52094] = { 20223,  apply.MOV_SPEED, 1},				
+				[52095] = { 20223,  apply.MOV_SPEED, 1},				
+				[52096] = { 20224,  apply.ATTBONUS_MONSTER, 3},	
+				[52097] = { 20224,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52098] = { 20224,  apply.MAX_HP,250},			
+				[52099] = { 20224,  apply.DEF_GRADE_BONUS, 50},	
+				[52100] = { 20224,  apply.ATT_GRADE_BONUS, 30},	
+				[52101] = { 20225,  apply.ATTBONUS_MONSTER, 5},	
+				[52102] = { 20225,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52103] = { 20225,  apply.MAX_HP,500},		 	
+				[52104] = { 20225,  apply.DEF_GRADE_BONUS, 150},	
+				[52105] = { 20225,  apply.ATT_GRADE_BONUS, 100},
+
+				[52106] = { 20228,  apply.MOV_SPEED, 1},				
+				[52107] = { 20228,  apply.MOV_SPEED, 1},				
+				[52108] = { 20228,  apply.MOV_SPEED, 1},				
+				[52109] = { 20228,  apply.MOV_SPEED, 1},				
+				[52110] = { 20228,  apply.MOV_SPEED, 1},				
+				[52111] = { 20229,  apply.ATTBONUS_MONSTER, 3},	
+				[52112] = { 20229,  apply.EXP_DOUBLE_BONUS, 3},	
+				[52113] = { 20229,  apply.MAX_HP,250},			
+				[52114] = { 20229,  apply.DEF_GRADE_BONUS, 50},	
+				[52115] = { 20229,  apply.ATT_GRADE_BONUS, 30},	
+				[52116] = { 20230,  apply.ATTBONUS_MONSTER, 5},	
+				[52117] = { 20230,  apply.EXP_DOUBLE_BONUS, 5},	
+				[52118] = { 20230,  apply.MAX_HP,500},		 	
+				[52119] = { 20230,  apply.DEF_GRADE_BONUS, 150},	
+				[52120] = { 20230,  apply.ATT_GRADE_BONUS, 100},
+				
+				---------------------------------------------------------------------------------------------------------------
+				[71114] = { 20110,	  apply.DEF_GRADE_BONUS, 75},
+				[71116] = { 20111,	  apply.DEF_GRADE_BONUS, 100},
+				[71118] = { 20112,	  apply.DEF_GRADE_BONUS, 125},
+				[71120] = { 20113,	  apply.ATT_GRADE_BONUS, 200},
+				[71124] = { 20114,		apply.EXP_DOUBLE_BONUS, 30},
+				[71125] = { 20115,		apply.ATTBONUS_MONSTER, 20},
+				[71126] = { 20116,		apply.CRITICAL_PCT, 10},
+				[71127] = { 20117,		apply.CRITICAL_PCT, 10},
+				[71128] = { 20118,		apply.DEF_GRADE_BONUS, 100},
+				[71131] = { 20119,		apply.MOV_SPEED, 60},
+				[71132] = { 20119,		apply.MOV_SPEED, 60},
+				[71133] = { 20119,		apply.MOV_SPEED, 60},
+				[71134] = { 20119,		apply.MOV_SPEED, 60},
+				[71137] = { 20120,		apply.EXP_DOUBLE_BONUS, 20},
+				[71138] = { 20121,		apply.EXP_DOUBLE_BONUS, 20},
+				[71139] = { 20122,		apply.EXP_DOUBLE_BONUS, 20},
+				[71140] = { 20123,		apply.EXP_DOUBLE_BONUS, 20},
+				[71141] = { 20124,		apply.EXP_DOUBLE_BONUS, 20},
+				[71142] = { 20125,		apply.EXP_DOUBLE_BONUS, 20},
+				[71161] = { 20219,		apply.MOV_SPEED, 1},
+				[71164] = { 20220,		apply.MOV_SPEED, 60},
+				[71165] = { 20221,		apply.MOV_SPEED, 60},
+				[71166] = { 20222,		apply.MOV_SPEED, 60},
+				[71171] = { 20227,		apply.MOV_SPEED, 60},
+				[71172] = { 20226,		apply.MOV_SPEED, 60},
+				[71176] = { 20231,		apply.MOV_SPEED, 30},
+				[71177] = { 20232,		apply.MOV_SPEED, 30},
+				[71182] = { 20233,		apply.EXP_DOUBLE_BONUS, 30},
+				[71183] = { 20234,		apply.EXP_DOUBLE_BONUS, 30},
+				[71184] = { 20235,		apply.EXP_DOUBLE_BONUS, 30},
+				[71185] = { 20236,		apply.EXP_DOUBLE_BONUS, 30},
+				[71186] = { 20237,		apply.EXP_DOUBLE_BONUS, 30},
+				[71187] = { 20238,		apply.EXP_DOUBLE_BONUS, 30},
+				[71192] = { 20240,		apply.EXP_DOUBLE_BONUS, 30},
+				[71193] = { 20239,		apply.EXP_DOUBLE_BONUS, 30},
+				[71197] = { 20241,		apply.EXP_DOUBLE_BONUS, 30},
+				[71198] = { 20242,		apply.EXP_DOUBLE_BONUS, 30},
+				[71220] = { 20243,		apply.EXP_DOUBLE_BONUS, 5},
+				[71222] = { 20244,		apply.MOV_SPEED, 20},
+				[71223] = { 20245,		apply.MOV_SPEED, 20},
+				[71224] = { 20246,		apply.ATTBONUS_MONSTER, 30},
+				[71225] = { 20247,		apply.ATTBONUS_MONSTER, 30},
+				[71226] = { 20248,		apply.MOV_SPEED, 20},
+				[71227] = { 20249,		apply.MOV_SPEED, 20},
+				}
+
+     pc.mount(ride_info[vnum][1], remain_time)
+     pc.mount_bonus(ride_info[vnum][2], ride_info[vnum][3], remain_time)
+		end
+		
+		when login begin
+			local vnum, remain_time = pc.get_special_ride_vnum()
+			if 0 != vnum then
+				if pc.is_polymorphed() then
+					return
+				elseif pc.is_riding() then
+					return
+				else
+					ride.Ride(vnum, remain_time)
+				end
+			end
+		end
+
+    when 71114.use or 71116.use or 71118.use or 71120.use begin
+    local vnum3 = item.get_vnum()
+    local lv_limit = { [71114] = {75}, [71116] = {80}, [71118] = {85}, [71120] = {90}, }
+      
+      if lv_limit[vnum3][1] > pc.get_level() then
+        say("Seviyen çok düþük!")
+        say("")
+        return
+			end	
+    
+			if pc.is_polymorphed() then
+				say("")
+				say("Dönüþmüþ haldeyken binek kullanamazsýn.")
+				say("")
+			elseif pc.get_map_index() == 112 or pc.get_map_index() == 113 or pc.get_map_index() == 28 then
+				say("Bu bölgede binek hayvanýný çaðýramazsýn.")
+				say("")
+				return
+			elseif false == pc.is_riding() then
+			 	if true == horse.is_summon() then
+					horse.unsummon()
+				end
+				ride.Ride(vnum3, 5*60)
+				pc.remove_item(vnum3,1)
+			 else
+				say("Þu anda biniyorsun zaten! Hayvanýný deðiþtirmek")
+				say("için, önce binmiþ olduðundan inmen lazým.")
+				say("")
+			end
+		end
+		
+		when 71124.use or 71125.use or 71126.use or 71127.use or 71128.use or 71131.use or 71132.use or 71133.use or 71134.use or 71137.use 
+		or 71138.use or 71139.use or 71140.use or 71141.use or 71142.use or 71161.use or 71164.use or 71165.use or 71166.use or 71171.use 
+		or 71172.use or 71176.use or 71177.use or 71182.use or 71183.use or 71184.use or 71185.use or 71186.use or 71187.use or 71192.use 
+		or 71193.use or 71197.use or 71198.use or 71220.use or 71222.use or 71223.use  or 71224.use or 71225.use or 71226.use or 71227.use begin
+		local vnum2 = item.get_vnum()
+			if pc.is_polymorphed() then
+				say("")
+				say("Dönüþmüþ haldeyken binek kullanamazsýn.")
+				say("")
+			elseif pc.get_map_index() == 112 or pc.get_map_index() == 113 or pc.get_map_index() == 28 then
+				say("Bu bölgede binek hayvanýný çaðýramazsýn.")
+				say("")
+				return
+			elseif false == pc.is_riding() then
+			 	if true == horse.is_summon() then
+					horse.unsummon()
+				end
+				ride.Ride(vnum2, item.get_socket(0))
+			 else
+				say("Þu anda biniyorsun zaten! Hayvanýný deðiþtirmek")
+				say("için, önce binmiþ olduðundan inmen lazým.")
+				say("")
+			end
+		end
+		
+		when 52001.use or 52002.use or 52003.use or 52004.use or 52005.use or 52006.use or 52007.use or 52008.use or 52009.use or 52010.use
+		or 52011.use or 52012.use or 52013.use or 52014.use or 52015.use or 52016.use or 52017.use or 52018.use or 52019.use or 52020.use
+		or 52021.use or 52022.use or 52023.use or 52024.use or 52025.use or 52026.use or 52027.use or 52028.use or 52029.use or 52030.use
+		or 52031.use or 52032.use or 52033.use or 52034.use or 52035.use or 52036.use or 52037.use or 52038.use or 52039.use or 52040.use
+		or 52041.use or 52042.use or 52043.use or 52044.use or 52045.use or 52046.use or 52047.use or 52048.use or 52049.use or 52050.use
+		or 52051.use or 52052.use or 52053.use or 52054.use or 52055.use or 52056.use or 52057.use or 52058.use or 52059.use or 52060.use 
+		or 52061.use or 52062.use or 52063.use or 52064.use or 52065.use or 52066.use or 52067.use or 52068.use or 52069.use or 52070.use
+		or 52071.use or 52072.use or 52073.use or 52074.use or 52075.use or 52076.use or 52077.use or 52078.use or 52079.use or 52080.use
+		or 52081.use or 52082.use or 52083.use or 52084.use or 52085.use or 52086.use or 52087.use or 52088.use or 52089.use or 52090.use
+		or 52091.use or 52092.use or 52093.use or 52094.use or 52095.use or 52096.use or 52097.use or 52098.use or 52099.use or 52100.use
+		or 52101.use or 52102.use or 52103.use or 52104.use or 52105.use or 52106.use or 52107.use or 52108.use or 52109.use or 52110.use
+		or 52111.use or 52112.use or 52113.use or 52114.use or 52115.use or 52116.use or 52117.use or 52118.use or 52119.use or 52120.use begin
+		local vnum = item.get_vnum()
+		local mounts_horse_lvl = horse.get_level()
+		local player_level = pc.get_level()
+		
+			if pc.is_polymorphed() then
+				say("")
+				say("Dönüþmüþ haldeyken binek kullanamazsýn.")
+				say("")
+				return
+			end
+			
+			if pc.get_map_index() == 112 or pc.get_map_index() == 113 or pc.get_map_index() == 28 then
+				say("Bu bölgede binek hayvanýný çaðýramazsýn.")
+				say("")
+				return
+			end
+			
+			if item.get_value(0) == 2 then
+				if player_level < 35 then 
+					say("Seviyen çok düþük!")
+					say("")
+					return
+				end	
+				if mounts_horse_lvl < 11 then 
+					syschat("Zýrhlý at kitabýna sahip deðilsin.")
+					return
+				end
+			elseif item.get_value(0) == 3 then
+				if player_level < 50 then 
+					say("Seviyen çok düþük!")
+					say("")
+					return
+				end	
+				if mounts_horse_lvl < 21 then 
+					syschat("Asker at kitabýna sahip deðilsin.")
+					return
+				end
+			end
+			
+			if false == pc.is_riding() then
+			 	if true == horse.is_summon() then
+					horse.unsummon()
+				end
+				ride.Ride(item.vnum, item.get_socket(0)-get_time())
+			else
+				say("Þu anda biniyorsun zaten! Hayvanýný deðiþtirmek")
+				say("için, önce binmiþ olduðundan inmen lazým.")
+				say("")
+				return
+			end
+		end
+	end
+end
