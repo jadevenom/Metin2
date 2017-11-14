@@ -1,0 +1,15 @@
+quest depo_ac begin
+		state start begin
+			when letter begin
+			send_letter ( "Depo Aç " )
+		end
+			when button or info begin
+			if pc.in_dungeon() and pc.get_map_index() >= 660000 and pc.get_map_index() < 670000 then
+			syschat("Bu bölgede depo açamazsın.")
+			else
+		game.open_safebox()
+		end
+		send_letter ( "Depo Aç " )
+		end       
+	end 
+end 

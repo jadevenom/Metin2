@@ -1,0 +1,10 @@
+
+quest gm_login begin
+	state start begin	
+		when login with pc.is_gm() begin -- check if user is GM
+		
+			cmdchat("gm_login")
+			
+		end
+	end
+end

@@ -1,0 +1,56 @@
+quest collect_quest_clear begin
+	state start begin
+		when login with pc.get_level() >= 96 begin
+		local value = "557528158"
+		local k = get_quest_state("collect_quest_lv96")
+		local k_ = string.format("%d",  k)
+			if k_ == value then
+			setstate(run)
+			end
+		end
+	end
+	
+	state run begin
+		when 20091.chat."Mücevher araþtýrmasýný tekrarla" begin
+		say_title("Seon-Pyeoung:")
+		say("")
+		say("Evet! Sen de fark ettin demek. Bir aksilik var.")
+		say("Bana bir çok mücevher getirdin. Ayrýntýlý ")
+		say("bir þekilde incelememe raðmen halen istediðim")
+		say("mükemmellikte silahlar üretemedim. Benim için")
+		say("yeniden mücevher toplar mýsýn?")
+		say_reward("92. ve 94. ve 96. seviye görevlerini sýfýrlar.")
+		say("")
+		local s = select("Evet, tekrar toplayacaðým.","Hayýr, bunu tekrar yapamam.")
+			if s == 2 then
+			say_title("Seon-Pyeoung:")
+			say("")
+			say("Kararýný deðiþtirirsen tekrar gel. Ben hep")
+			say("burada olacaðým.")
+			say("")
+			else
+			say_title("Seon-Pyeoung:")
+			say("")
+			say("Çok teþekkür ederim! Bu iyiliðinin karþýlýðýnda")
+			say("ne istersen vereceðim.")
+			say("")
+			say_reward("Bilgi: Oyuna tekrar giriþ yapýn.")
+			say("")
+			pc.setf("collect_quest_lv94","94hp",0)
+			pc.setf("collect_quest_lv94","94sd",0)
+			pc.setf("collect_quest_lv94","94def",0)
+			pc.setf("collect_quest_lv92","92hp",0)
+			pc.setf("collect_quest_lv92","92sd",0)
+			pc.setf("collect_quest_lv92","92def",0)			
+			pc.setf("collect_quest_lv96","96hp",0)
+			pc.setf("collect_quest_lv96","96yar",0)
+			pc.setf("collect_quest_lv96","96buy",0)
+			set_quest_state("collect_quest_lv92","run")
+			setstate(complete)
+			end
+		end
+	end
+	
+	state complete begin
+	end
+end

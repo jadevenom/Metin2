@@ -1,0 +1,20 @@
+quest changelook begin
+	state start begin
+		when 20406.chat."Yansýtma" begin
+			say_title(mob_name(20406))
+			say("")
+			say("Yansýtma, ekipmanýnýn görünümü sonsuza dek")
+			say("deðiþtirmeni saðlar.Ancak etkisi ekipmanýn")
+			say("seviyesiyle sýnýrlýdýr ve eklediðin yansýtma")
+			say("nesne geliþtirildiðinde yok olur.Devam et?")
+			say("")
+			local confirm = select("Evet.", "Hayýr")
+			if confirm == 2 then
+				return
+			end
+			
+			setskin(NOWINDOW)
+			pc.open_changelook(true)
+		end
+	end
+end

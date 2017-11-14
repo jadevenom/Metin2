@@ -1,0 +1,87 @@
+quest cheque begin
+	state start begin
+		when warehouse_keeper.chat."Döviz Bürosu" begin
+			say_title("Depo Görevisi: ")
+			say("")
+			say("Yoksa sen hala madeni paramý kullanýyorsun ?")
+			say("Junjeh Ekonomistleri madeni paranýn yerini alacak,")
+			say("ekonomiyi rahatlatacka yeni para birimi geliþtirdiler.")
+			say("Bu para birimini alýþveriþlerinde kullanabileceksin.")
+			say("Ýsmi Won. 1 Won 100.000.000 Yang deðerindedir.")
+			say("Faiz olmadan bozdurup iþlem gerçekleþtirebilirsin.")
+			say_reward("Þimdi ne yapmak istiyorsun ?")
+			local s = select("Madeni Para Bozdur","Madeni Para Çevir","Vazgeç	")
+			if s == 3 then
+				say_title("Depo Görevlisi: ")
+				say("")
+				say("Demek vazgeçiyorsun...")
+				say("Fikrini deðiþtirirsen tekrar beklerim þimdilik hoþçakal!")
+				return
+			elseif s == 2 then
+				say_title("Depo Görevlisi: ")
+				say("")
+				say("100.000.000 Yang karþýlýðýnda 1 Won alacaksýn.")
+				say_reward("Devam etmek istiyormusun ?")
+				local ss = select("Evet","Hayýr")
+				if ss == 2 then
+					say_title("Depo Görevlisi: ")
+					say("")
+					say("Demek vazgeçiyorsun...")
+					say("Fikrini deðiþtirirsen tekrar beklerim þimdilik hoþçakal!")
+					return
+				elseif ss == 1 then
+					if pc.get_gold() < 100000000 then
+						say_title("Depo Görevlisi: ")
+						say("")
+						say_reward("Yeterli miktarda Yang'a sahip deðilsin.")
+						return
+					end
+					if pc.get_cheque() >98 then
+						say_title("Depo Görevlisi: ")
+						say("")
+						say_reward("Envanterinde 99 adet Won taþýyorsun.")
+						return
+					end
+					say_title("Depo Görevlisi: ")
+					say("")
+					say_reward("Ýþlem Baþarýyla Tamamlandý!")
+					say_reward("1 Won Kazandýn.")
+					pc.change_cheque(1)
+					pc.change_gold(-100000000)
+				end
+			elseif s == 1 then
+					say_title("Depo Görevlisi: ")
+					say("")
+					say("1 Won karþýlýðýnda 100.000.000 Yang alacaksýn.")
+					say_reward("Devam etmek istiyormusun ?")
+					local sss = select("Evet","Hayýr")
+					if sss == 2 then
+						say_title("Depo Görevlisi: ")
+						say("")
+						say("Demek vazgeçiyorsun...")
+						say("Fikrini deðiþtirirsen tekrar beklerim þimdilik hoþçakal!")
+						return
+					elseif sss == 1 then
+						if pc.get_cheque() < 1 then
+							say_title("Depo Görevlisi: ")
+							say("")
+							say_reward("Yeterli miktarda Won'a sahip deðilsin.")
+							return
+						end
+						if pc.get_gold() > 1900000000 then
+							say_title("Depo Görevlisi: ")
+							say("")
+							say_reward("Envanterinde 1 Milyar 900 Milyon dan fazla yang taþýyorsun.")
+							return
+						end
+						say_title("Depo Görevlisi: ")
+						say("")
+						say_reward("Ýþlem Baþarýyla Tamamlandý!")
+						say_reward("100.000.000 Yang Kazandýn.")
+						pc.change_cheque(-1)
+						pc.change_gold(100000000)
+					end
+				end
+			end
+		end
+	end

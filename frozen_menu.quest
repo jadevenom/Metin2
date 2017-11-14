@@ -1,0 +1,20 @@
+quest frozen_menu begin
+	state start begin
+
+	when 20001.chat."Simyacı Market " begin
+		npc.open_shop(13)
+			say("Simya için gerekli nesneler ")
+	end
+
+	when 20349.chat."Seyis Market " begin
+		npc.open_shop(11)
+			say("Binicilik için gerekli nesneler ")
+	end
+
+	when 20991.chat."Kitapçı Market " begin
+		npc.open_shop(20991)
+			say("Beceri için gerekli nesneler ")
+	end
+
+	end
+end
