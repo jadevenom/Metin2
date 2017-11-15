@@ -17,17 +17,17 @@ quest Bedensel5LvBec begin
 --		say_reward ( "ou Arte Corpo " ) 
 --		say_reward ( "Pode escolher." ) 
 		elseif pc_job == 1 then 
---		say_reward ( "Bir Ninja, Yakin Dövüþ veya" ) 
---		say_reward ( "Uzak Dövüþ eðitimini" ) 
---		say_reward ( "seçebilir." ) 
+--		say_reward ( "Um Ninja, uma luta próxima ou" ) 
+--		say_reward ( "Treinamento arqueiro" ) 
+--		say_reward ( "você pode escolher." ) 
 		elseif pc_job == 2 then 
---		say_reward ( "Bir Sura, Büyülü Silah" ) 
---		say_reward ( "veya Kara Büyü eðitimini" ) 
---		say_reward ( "seçebilir." ) 
+--		say_reward ( "Uma Sura, Arma Mágica" ) 
+--		say_reward ( "ou treino de magia negra" ) 
+--		say_reward ( "você pode escolher" ) 
 		elseif pc_job == 3 then 
---		say_reward ( "Bir Þaman, Ejderha Gücü eðitimini" ) 
---		say_reward ( "veya Ýyileþtirme eðitimini" ) 
---		say_reward ( "seçebilir." ) 
+--		say_reward ( "Um Shaman, o treinamento do Poder Dragao" ) 
+--		say_reward ( "ou treinamento de aprimoramento" ) 
+--		say_reward ( "você pode escolher." ) 
 		end 
 --		say ( "" ) 
 		return 
