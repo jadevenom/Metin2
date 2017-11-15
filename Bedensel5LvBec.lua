@@ -32,13 +32,13 @@ quest Bedensel5LvBec begin
 --		say ( "" ) 
 		return 
 		end 
---		say_title ( "Bedensel Savaþ eðitimi" ) 
---		say ( "Bedensel savaþ eðitimi hýzlý savaþma eðitimi ve" ) 
---		say ( "metodlarýný, ayrýca geliþmiþ temel saldýrý " ) 
---		say ( "tiplerini içerir." ) 
---		say_reward ( "Gereksinim: Seviye 5 ve üstü bir savaþçý olmak" ) 
+--		say_title ( "Treinamento em Guerra Física" ) 
+--		say ( "O treinamento de guerra física é um treinamento de luta rápida e" ) 
+--		say ( "métodos, bem como um ataque básico melhorado " ) 
+--		say ( "tipos." ) 
+--		say_reward ( "Requisito: Seja um guerreiro no nível 5 e acima" ) 
 --		say ( "" ) 
---		local s = select ( "Baþla" , "Daha sonra" ) 
+--		local s = select ( "Iniciar "," Então" ) 
 		if 2 == s then 
 		return 
 		end 
