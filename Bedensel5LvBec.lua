@@ -51,15 +51,15 @@ quest Bedensel5LvBec begin
 		set_state ( "start" ) 
 		pc . set_skill_group ( 1 ) 
 		pc . clear_skill ( ) 
-		char_log ( 0 , "CLEAR_SKILL" , "Ögretmen silindikten sonraki dogal yetenek." ) 
---		say_title ( "Bedensel savaþ eðitimini seçtin." ) 
+		char_log ( 0 , "CLEAR_SKILL" , "O próximo talento natural quando o professor é liberado." ) 
+--		say_title ( "Treinamento de guerra física selecionado." ) 
 --		say ( "Hoþgeldin!" ) 
 		if not pc . is_clear_skill_group ( ) then 
---		say ( "Ders almayý seçtiðin için 4 yetenek puaný " ) 
---		say ( "kazandýn. Bu puanlarý dilediðin herhangi bir" ) 
---		say ( "yeteneðini geliþtirmek için kullabilirsin." ) 
---		say_title ( "Bilgi:" ) 
---		say_reward ( "4 yetenek puaný kazandýn." ) 
+--		say ( "4 pontos de habilidade para escolher " ) 
+--		say ( "Você pode ganhar esses resultados para qualquer" ) 
+--		say ( "Você pode usá-lo para melhorar suas Habilidades." ) 
+--		say_title ( "informação" ) 
+--		say_reward ( "Você ganhou 4 pontos de habilidade." ) 
 --		say ( "" ) 
 		pc . set_skill_level ( 1 , 0 ) 
 		pc . set_skill_level ( 2 , 0 ) 
@@ -121,8 +121,8 @@ quest Bedensel5LvBec begin
 		horse . advance ( )  
 
 		else 
---		say_reward ( "Yeni bir ders seçtiginde," ) 
---		say_reward ( "daha fazla tecrübe puani almayacaksin." ) 
+--		say_reward ( "Quando você escolhe um novo curso," ) 
+--		say_reward ( "você não terá mais pontos de experiência." ) 
 --		say ( "" ) 
 		end 
 --		clear_letter ( ) 
