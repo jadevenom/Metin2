@@ -17,7 +17,7 @@ quest Bedensel5LvBec begin
 --		say_reward ( "ou Arte Corpo " ) 
 --		say_reward ( "Pode escolher." ) 
 		elseif pc_job == 1 then 
---		say_reward ( "Bir Ninja, Yakin Dövüþ veya" ) 
+--		say_reward ( "Um Ninja, uma luta próxima ou" ) 
 --		say_reward ( "Uzak Dövüþ eðitimini" ) 
 --		say_reward ( "seçebilir." ) 
 		elseif pc_job == 2 then 
